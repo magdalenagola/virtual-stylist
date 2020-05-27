@@ -5,12 +5,14 @@ import org.springframework.stereotype.Repository;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Optional;
 
-@Repository
+@Repository("crudDataAccess")
 public interface CrudRepository<T, ID extends Serializable>  extends JpaRepository<T, ID> {
     <S extends T> S save(S entity);
-    T findOne(ID primaryKey);
+    Optional<T> findById(ID primaryKey);
     List<T> findAll();
     void delete(T entity);
-    boolean exists(ID primaryKey);
+    boolean existsById(ID primaryKey);
+
 }
