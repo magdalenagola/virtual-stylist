@@ -37,6 +37,7 @@ class Cloth {
     @Enumerated(EnumType.STRING)
     private Size size;
 
+    @Column(nullable = false)
     private boolean hasPattern;
 
     private String shopLink;
