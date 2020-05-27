@@ -1,6 +1,6 @@
 package com.codecool.virtualstylist.wardrobe;
 
-public enum ClothType {
+enum ClothType {
     BLOUSE,
     TSHIRT,
     TOP,

@@ -1,6 +1,6 @@
 package com.codecool.virtualstylist.wardrobe;
 
-public enum Color {
+enum Color {
     WHITE,
     BLACK,
     RED,
