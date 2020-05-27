@@ -1,6 +1,5 @@
 package com.codecool.virtualstylist.wardrobe;
 
-import com.codecool.virtualstylist.repository.CrudRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -10,10 +9,10 @@ import java.util.Optional;
 
 @Service
 class WardrobeService {
-    private CrudRepository<Cloth, Integer> wardrobeDataAccess;
+    private WardrobeDataAccess wardrobeDataAccess;
 
     @Autowired
-    public WardrobeService(@Qualifier("crudDataAccess") CrudRepository<Cloth, Integer> wardrobeDataAccess) {
+    public WardrobeService(@Qualifier("wardrobeDataAccess") WardrobeDataAccess wardrobeDataAccess) {
         this.wardrobeDataAccess = wardrobeDataAccess;
     }
 
@@ -25,6 +24,6 @@ class WardrobeService {
     }
 
     List<Cloth> getAllClothesByUserId(int userId){
-        return wardrobeDataAccess.findAll();
+        return wardrobeDataAccess.findAllByUserId(userId);
     }
 }
