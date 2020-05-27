@@ -1,14 +1,12 @@
 package com.codecool.virtualstylist.user;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Transient;
+import javax.persistence.*;
 import java.util.List;
 
 @Entity
-public class User {
+class User {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
     private String email;
     private String password;
@@ -25,7 +23,7 @@ public class User {
 
     public User() {}
 
-    public User(String email, String password, String name, Gender gender, PasswordEncoder passwordEncoder) {
+    User(String email, String password, String name, Gender gender, PasswordEncoder passwordEncoder) {
         this.email = email;
         this.password = password;
         this.name = name;
@@ -45,9 +43,7 @@ public class User {
         return email;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
+    public void setEmail(String email) { this.email = email; }
 
     public String getPassword() {
         return password;

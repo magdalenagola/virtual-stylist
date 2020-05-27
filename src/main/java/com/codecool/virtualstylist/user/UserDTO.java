@@ -1,13 +1,13 @@
 package com.codecool.virtualstylist.user;
 
-public class UserDTO {
+class UserDTO {
     private Integer id;
     private String email;
     private String password;
     private String name;
     private Gender gender;
 
-    public UserDTO(Integer id, String email, String password, String name, Gender gender) {
+    UserDTO(Integer id, String email, String password, String name, Gender gender) {
         this.id = id;
         this.email = email;
         this.password = password;
