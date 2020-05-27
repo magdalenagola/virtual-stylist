@@ -9,6 +9,7 @@ class Cloth {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
+    @Column(nullable = false)
     private String imagePath;
 
     @Column(nullable = false)
@@ -45,6 +46,18 @@ class Cloth {
 
     @ManyToMany(mappedBy = "clothes",fetch = FetchType.LAZY)
     private List<Stylization> stylizations;
+
+    public Cloth() {
+    }
+
+    public Cloth(String imagePath, BodyPart bodyPart, ClothType clothType, Color color, Style style, boolean hasPattern) {
+        this.imagePath = imagePath;
+        this.bodyPart = bodyPart;
+        this.clothType = clothType;
+        this.color = color;
+        this.style = style;
+        this.hasPattern = hasPattern;
+    }
 
     public Integer getId() {
         return id;
