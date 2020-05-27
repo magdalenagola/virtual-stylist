@@ -1,6 +1,6 @@
 package com.codecool.virtualstylist.wardrobe;
 
-public enum Style {
+enum Style {
     CASUAL, CLASSIC, BUSINESS, RETRO, SPORTY, ROMANTIC, BOHO, FOLK, ALTERNATIVE
 }
 

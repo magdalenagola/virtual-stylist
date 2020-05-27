@@ -1,5 +1,5 @@
 package com.codecool.virtualstylist.user;
 
-public enum Gender {
+enum Gender {
     FEMALE, MALE, OTHER
 }
