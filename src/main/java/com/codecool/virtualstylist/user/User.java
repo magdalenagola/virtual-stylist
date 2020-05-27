@@ -1,5 +1,8 @@
 package com.codecool.virtualstylist.user;
 
+import com.codecool.virtualstylist.wardrobe.Cloth;
+import org.springframework.security.crypto.password.PasswordEncoder;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -11,6 +14,7 @@ class User {
     private String email;
     private String password;
     private String name;
+    @Enumerated(EnumType.STRING)
     private Gender gender;
     @Transient
     private PasswordEncoder passwordEncoder;
