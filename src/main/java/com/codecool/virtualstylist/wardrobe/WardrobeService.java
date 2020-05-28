@@ -24,6 +24,6 @@ class WardrobeService {
     }
 
     List<Cloth> getAllClothesByUserId(int userId){
-        return wardrobeDataAccess.findAllByUserId(userId);
+        return wardrobeDataAccess.findAllByUser_Id(userId);
     }
 }
