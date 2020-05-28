@@ -4,7 +4,7 @@ import javax.persistence.*;
 import com.codecool.virtualstylist.user.User;
 
 @Entity
-class Cloth {
+public class Cloth {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
