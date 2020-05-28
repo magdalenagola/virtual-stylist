@@ -16,9 +16,18 @@ class WardrobeService {
         this.wardrobeDataAccess = wardrobeDataAccess;
     }
 
+    void addCloth(Cloth cloth){
+        wardrobeDataAccess.save(cloth);
+    }
+
+    void editCloth(Cloth cloth){
+        wardrobeDataAccess.save(cloth);
+    }
+
     void deleteCloth(Cloth cloth){
         wardrobeDataAccess.delete(cloth);
     }
+
     Optional<Cloth> getClothById(int clothId){
         return wardrobeDataAccess.findById(clothId);
     }
