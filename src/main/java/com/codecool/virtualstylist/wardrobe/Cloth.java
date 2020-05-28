@@ -42,10 +42,10 @@ class Cloth {
 
     private String shopLink;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     private User user;
 
-    @ManyToMany(mappedBy = "clothes",fetch = FetchType.LAZY)
+    @ManyToMany(mappedBy = "clothes")
     private List<Stylization> stylizations;
 
     public Cloth() {
