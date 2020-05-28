@@ -51,14 +51,21 @@ class Cloth {
     public Cloth() {
     }
 
-    public Cloth(String imagePath, BodyPart bodyPart, ClothType clothType, Color color, Style style, boolean hasPattern) {
+    public Cloth(String imagePath, BodyPart bodyPart, ClothType clothType, Color color, String code, String brand, Style style, String tag, Size size, boolean hasPattern, String shopLink, User user) {
         this.imagePath = imagePath;
         this.bodyPart = bodyPart;
         this.clothType = clothType;
         this.color = color;
+        this.code = code;
+        this.brand = brand;
         this.style = style;
+        this.tag = tag;
+        this.size = size;
         this.hasPattern = hasPattern;
+        this.shopLink = shopLink;
+        this.user = user;
     }
+
 
     public Integer getId() {
         return id;
