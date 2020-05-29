@@ -14,15 +14,15 @@ class Cloth {
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
-    private BodyPart bodyPart;
+    private ClothesProperties.BodyPart bodyPart;
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
-    private ClothType clothType;
+    private ClothesProperties.ClothType clothType;
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
-    private Color color;
+    private ClothesProperties.Color color;
 
     private String code;
 
@@ -30,12 +30,12 @@ class Cloth {
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
-    private Style style;
+    private ClothesProperties.Style style;
 
     private String tag;
 
     @Enumerated(EnumType.STRING)
-    private Size size;
+    private ClothesProperties.Size size;
 
     @Column(nullable = false)
     private boolean hasPattern;
@@ -45,13 +45,13 @@ class Cloth {
     @ManyToOne(fetch = FetchType.LAZY)
     private User user;
 
-    @ManyToMany(mappedBy = "clothes",fetch = FetchType.LAZY)
+    @ManyToMany(mappedBy = "clothes", fetch = FetchType.LAZY)
     private List<Stylization> stylizations;
 
     public Cloth() {
     }
 
-    public Cloth(String imagePath, BodyPart bodyPart, ClothType clothType, Color color, Style style, boolean hasPattern) {
+    public Cloth(String imagePath, ClothesProperties.BodyPart bodyPart, ClothesProperties.ClothType clothType, ClothesProperties.Color color, ClothesProperties.Style style, boolean hasPattern) {
         this.imagePath = imagePath;
         this.bodyPart = bodyPart;
         this.clothType = clothType;
@@ -76,27 +76,27 @@ class Cloth {
         this.imagePath = imagePath;
     }
 
-    public BodyPart getBodyPart() {
+    public ClothesProperties.BodyPart getBodyPart() {
         return bodyPart;
     }
 
-    public void setBodyPart(BodyPart bodyPart) {
+    public void setBodyPart(ClothesProperties.BodyPart bodyPart) {
         this.bodyPart = bodyPart;
     }
 
-    public ClothType getClothType() {
+    public ClothesProperties.ClothType getClothType() {
         return clothType;
     }
 
-    public void setClothType(ClothType clothType) {
+    public void setClothType(ClothesProperties.ClothType clothType) {
         this.clothType = clothType;
     }
 
-    public Color getColor() {
+    public ClothesProperties.Color getColor() {
         return color;
     }
 
-    public void setColor(Color color) {
+    public void setColor(ClothesProperties.Color color) {
         this.color = color;
     }
 
@@ -116,11 +116,11 @@ class Cloth {
         this.brand = brand;
     }
 
-    public Style getStyle() {
+    public ClothesProperties.Style getStyle() {
         return style;
     }
 
-    public void setStyle(Style style) {
+    public void setStyle(ClothesProperties.Style style) {
         this.style = style;
     }
 
@@ -132,11 +132,11 @@ class Cloth {
         this.tag = tag;
     }
 
-    public Size getSize() {
+    public ClothesProperties.Size getSize() {
         return size;
     }
 
-    public void setSize(Size size) {
+    public void setSize(ClothesProperties.Size size) {
         this.size = size;
     }
 
@@ -172,3 +172,5 @@ class Cloth {
         this.stylizations = stylizations;
     }
 }
+
+
