@@ -12,33 +12,46 @@
 
 ## About <a name = "about"></a>
 
+  Open source project for codecool.
+  As a students on 4th and last codecool module we are supposed to create open source web application using any resources we have learned during course. Virtual-Stylist is an application which can help you to govern you wardrobe, group and store every piece of clothes you have. Moreover we offer our stylist module which are able to composing stylization for diffrent occasions. You can create stylizations from clothes you added on your own as well.
 
 ## Built With <a name = "built-with"></a>
-This section should list any major frameworks that you built your project using. Leave any add-ons/plugins for the acknowledgements section. Here are a few examples.
+
 * [Spring-boot](https://spring.io/projects/spring-boot)
 * [PostgreSQL](https://www.postgresql.org/)
 * [Hibernate](https://hibernate.org/)
 * [Java 8](https://www.java.com/pl/download/faq/java8.xml)
+
 ## Installing <a name = "installing"></a>
 
-To install postgresql on linux use:
+Clone our repository using :
 
 ```
-sudo apt install postgresql
+git clone https://github.com/magdalenagola/virtual-stylist.git
 ```
 
-To install postgresql on windows use:
-
-[Postgresql Windows Download](https://www.postgresql.org/download/windows/)
-
-##### IMPORTANT! 
-
+Maven properties will set automatically.
 
 ## Run <a name = "run"></a>
 
+To Run our application simply type that commands in termial:
+```
+  mvn package
+```
+
+```
+  cd target 
+```
+
+```
+  java -jar virtual-stylist-0.0.1-SNAPSHOT.jar
+```
 
 ## Usage <a name = "usage"></a>
 
+  https://app.swaggerhub.com/apis-docs/VirtualStylist/VirtualStylistApi/1.0#/
+  
 ## Contact <a name = "contact"></a>
-
+  turcza.magdalena@gmail.com
+  szczepan.topolski@gmail.com
 ##### We invite you to see our presentation <a name = "presentation"></a>
