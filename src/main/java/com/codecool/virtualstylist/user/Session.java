@@ -10,7 +10,7 @@ class Session {
     private Integer id;
     private String  sessionId;
     private Date date;
-    @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    @ManyToOne
     private User user;
 
     public Session() {
