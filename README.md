@@ -34,7 +34,7 @@ Maven properties will set automatically.
 
 ## Run <a name = "run"></a>
 
-To Run our application simply type that commands in termial:
+To Run our application simply type following commands in termial:
 ```
   mvn package
 ```
@@ -52,6 +52,6 @@ To Run our application simply type that commands in termial:
   https://app.swaggerhub.com/apis-docs/VirtualStylist/VirtualStylistApi/1.0#/
   
 ## Contact <a name = "contact"></a>
-  turcza.magdalena@gmail.com
-  szczepan.topolski@gmail.com
+ * turcza.magdalena@gmail.com
+ * szczepan.topolski@gmail.com
 ##### We invite you to see our presentation <a name = "presentation"></a>
