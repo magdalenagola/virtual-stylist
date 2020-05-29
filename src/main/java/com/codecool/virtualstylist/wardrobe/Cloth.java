@@ -1,7 +1,11 @@
 package com.codecool.virtualstylist.wardrobe;
 
 import javax.persistence.*;
+
+import com.codecool.virtualstylist.stylization.Stylization;
 import com.codecool.virtualstylist.user.User;
+
+import java.util.List;
 
 @Entity
 public class Cloth {

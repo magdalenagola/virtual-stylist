@@ -1,5 +1,6 @@
 package com.codecool.virtualstylist.user;
 
+import com.codecool.virtualstylist.stylization.Stylization;
 import com.codecool.virtualstylist.wardrobe.Cloth;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
