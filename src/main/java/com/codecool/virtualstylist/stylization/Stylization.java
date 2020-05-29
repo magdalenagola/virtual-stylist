@@ -6,6 +6,7 @@ import com.codecool.virtualstylist.wardrobe.Cloth;
 import javax.persistence.*;
 import java.util.List;
 
+@Entity
 public class Stylization {
 
     @Id
