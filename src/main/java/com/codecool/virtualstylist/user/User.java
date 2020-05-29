@@ -19,11 +19,17 @@ public class User {
     private Gender gender;
     @Transient
     private PasswordEncoder passwordEncoder;
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true)
     private  List<Cloth> wardrobe;
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true)
     private List<Stylization> stylizations;
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true)
     private List<Session> sessions;
 
     public User() {}
