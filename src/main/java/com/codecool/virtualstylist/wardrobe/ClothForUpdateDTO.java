@@ -1,20 +1,32 @@
 package com.codecool.virtualstylist.wardrobe;
 
 import com.codecool.virtualstylist.user.User;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 class ClothForUpdateDTO {
+    @JsonProperty("id")
     private Integer id;
+    @JsonProperty("clothType")
     private String clothType;
+    @JsonProperty("color")
     private String color;
+    @JsonProperty("code")
     private String code;
+    @JsonProperty("brand")
     private String brand;
+    @JsonProperty("style")
     private String style;
+    @JsonProperty("tag")
     private String tag;
+    @JsonProperty("size")
     private String size;
+    @JsonProperty("hasPattern")
     private boolean hasPattern;
+    @JsonProperty("shopLink")
     private String shopLink;
     private User user;
 
+    public ClothForUpdateDTO(){}
     public ClothForUpdateDTO(Integer id, String clothType, String color, String code, String brand, String style, String tag, String size, boolean hasPattern, String shopLink) {
         this.id = id;
         this.clothType = clothType;
