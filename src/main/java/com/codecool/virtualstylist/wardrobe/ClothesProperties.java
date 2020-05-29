@@ -1,6 +1,6 @@
 package com.codecool.virtualstylist.wardrobe;
 
-public class ClothesProperties {
+class ClothesProperties {
 
     enum Color {
         WHITE,
