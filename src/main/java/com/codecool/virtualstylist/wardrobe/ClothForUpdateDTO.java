@@ -107,4 +107,12 @@ class ClothForUpdateDTO {
     public void setShopLink(String shopLink) {
         this.shopLink = shopLink;
     }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 }
