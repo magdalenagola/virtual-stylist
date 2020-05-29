@@ -2,12 +2,12 @@ package com.codecool.virtualstylist.user;
 
 import com.codecool.virtualstylist.stylization.Stylization;
 import com.codecool.virtualstylist.wardrobe.Cloth;
-import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
+@Table(name = "user_details")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -17,16 +17,17 @@ public class User {
     private String name;
     @Enumerated(EnumType.STRING)
     private Gender gender;
-    @Transient
-    private PasswordEncoder passwordEncoder;
+
     @OneToMany(mappedBy = "user",
             cascade = CascadeType.ALL,
             orphanRemoval = true)
     private  List<Cloth> wardrobe;
+
     @OneToMany(mappedBy = "user",
             cascade = CascadeType.ALL,
             orphanRemoval = true)
     private List<Stylization> stylizations;
+
     @OneToMany(mappedBy = "user",
             cascade = CascadeType.ALL,
             orphanRemoval = true)
@@ -34,12 +35,11 @@ public class User {
 
     public User() {}
 
-    User(String email, String password, String name, Gender gender, PasswordEncoder passwordEncoder) {
+    User(String email, String password, String name, Gender gender) {
         this.email = email;
         this.password = password;
         this.name = name;
         this.gender = gender;
-        this.passwordEncoder = passwordEncoder;
     }
 
     public Integer getId() {
@@ -78,14 +78,6 @@ public class User {
 
     public void setGender(Gender gender) {
         this.gender = gender;
-    }
-
-    public PasswordEncoder getPasswordEncoder() {
-        return passwordEncoder;
-    }
-
-    public void setPasswordEncoder(PasswordEncoder passwordEncoder) {
-        this.passwordEncoder = passwordEncoder;
     }
 
     public List<Cloth> getWardrobe() {
