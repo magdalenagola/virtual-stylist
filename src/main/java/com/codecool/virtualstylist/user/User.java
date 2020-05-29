@@ -1,5 +1,6 @@
 package com.codecool.virtualstylist.user;
 
+import com.codecool.virtualstylist.stylization.Stylization;
 import com.codecool.virtualstylist.wardrobe.Cloth;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -7,7 +8,7 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-class User {
+public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;

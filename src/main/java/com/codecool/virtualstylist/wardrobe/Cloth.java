@@ -1,10 +1,14 @@
 package com.codecool.virtualstylist.wardrobe;
 
 import javax.persistence.*;
+
+import com.codecool.virtualstylist.stylization.Stylization;
 import com.codecool.virtualstylist.user.User;
 
+import java.util.List;
+
 @Entity
-class Cloth {
+public class Cloth {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
@@ -42,23 +46,30 @@ class Cloth {
 
     private String shopLink;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     private User user;
 
-    @ManyToMany(mappedBy = "clothes", fetch = FetchType.LAZY)
+    @ManyToMany(mappedBy = "clothes")
     private List<Stylization> stylizations;
 
     public Cloth() {
     }
 
-    public Cloth(String imagePath, ClothesProperties.BodyPart bodyPart, ClothesProperties.ClothType clothType, ClothesProperties.Color color, ClothesProperties.Style style, boolean hasPattern) {
+    public Cloth(String imagePath, ClothesProperties.BodyPart bodyPart, ClothesProperties.ClothType clothType, ClothesProperties.Color color, String code, String brand, ClothesProperties.Style style, String tag, ClothesProperties.Size size, boolean hasPattern, String shopLink, User user) {
         this.imagePath = imagePath;
         this.bodyPart = bodyPart;
         this.clothType = clothType;
         this.color = color;
+        this.code = code;
+        this.brand = brand;
         this.style = style;
+        this.tag = tag;
+        this.size = size;
         this.hasPattern = hasPattern;
+        this.shopLink = shopLink;
+        this.user = user;
     }
+
 
     public Integer getId() {
         return id;
