@@ -24,6 +24,11 @@ public class WardrobeController {
         return wardrobeService.getAllClothesByUserId(1);
     }
 
+    @GetMapping("/{id}")
+    public ClothForDisplayDTO getCloth(@PathVariable("id") Integer id){
+        return wardrobeService.getClothById(id);
+    }
+
     @PutMapping
     public void editCloth(@RequestBody ClothForUpdateDTO cloth){
         wardrobeService.editCloth(cloth);

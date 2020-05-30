@@ -1,34 +1,39 @@
 package com.codecool.virtualstylist.wardrobe;
 
-import com.codecool.virtualstylist.user.User;
-import com.fasterxml.jackson.annotation.JsonProperty;
 
-class ClothForUpdateDTO {
-    @JsonProperty("id")
+public class ClothForDisplayDTO {
+
     private Integer id;
-    @JsonProperty("clothType")
-    private String clothType;
-    @JsonProperty("color")
-    private String color;
-    @JsonProperty("code")
-    private String code;
-    @JsonProperty("brand")
-    private String brand;
-    @JsonProperty("style")
-    private String style;
-    @JsonProperty("tag")
-    private String tag;
-    @JsonProperty("size")
-    private String size;
-    @JsonProperty("hasPattern")
-    private boolean hasPattern;
-    @JsonProperty("shopLink")
-    private String shopLink;
-    private User user;
 
-    public ClothForUpdateDTO(){}
-    public ClothForUpdateDTO(Integer id, String clothType, String color, String code, String brand, String style, String tag, String size, boolean hasPattern, String shopLink) {
+    private String imagePath;
+
+    private ClothesProperties.BodyPart bodyPart;
+
+    private ClothesProperties.ClothType clothType;
+
+    private ClothesProperties.Color color;
+
+    private String code;
+
+    private String brand;
+
+    private ClothesProperties.Style style;
+
+    private String tag;
+
+    private ClothesProperties.Size size;
+
+    private boolean hasPattern;
+
+    private String shopLink;
+
+    public ClothForDisplayDTO() {
+    }
+
+    public ClothForDisplayDTO(Integer id, String imagePath, ClothesProperties.BodyPart bodyPart, ClothesProperties.ClothType clothType, ClothesProperties.Color color, String code, String brand, ClothesProperties.Style style, String tag, ClothesProperties.Size size, boolean hasPattern, String shopLink) {
         this.id = id;
+        this.imagePath = imagePath;
+        this.bodyPart = bodyPart;
         this.clothType = clothType;
         this.color = color;
         this.code = code;
@@ -48,19 +53,35 @@ class ClothForUpdateDTO {
         this.id = id;
     }
 
-    public String getClothType() {
+    public String getImagePath() {
+        return imagePath;
+    }
+
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
+    }
+
+    public ClothesProperties.BodyPart getBodyPart() {
+        return bodyPart;
+    }
+
+    public void setBodyPart(ClothesProperties.BodyPart bodyPart) {
+        this.bodyPart = bodyPart;
+    }
+
+    public ClothesProperties.ClothType getClothType() {
         return clothType;
     }
 
-    public void setClothType(String clothType) {
+    public void setClothType(ClothesProperties.ClothType clothType) {
         this.clothType = clothType;
     }
 
-    public String getColor() {
+    public ClothesProperties.Color getColor() {
         return color;
     }
 
-    public void setColor(String color) {
+    public void setColor(ClothesProperties.Color color) {
         this.color = color;
     }
 
@@ -80,11 +101,11 @@ class ClothForUpdateDTO {
         this.brand = brand;
     }
 
-    public String getStyle() {
+    public ClothesProperties.Style getStyle() {
         return style;
     }
 
-    public void setStyle(String style) {
+    public void setStyle(ClothesProperties.Style style) {
         this.style = style;
     }
 
@@ -96,11 +117,11 @@ class ClothForUpdateDTO {
         this.tag = tag;
     }
 
-    public String getSize() {
+    public ClothesProperties.Size getSize() {
         return size;
     }
 
-    public void setSize(String size) {
+    public void setSize(ClothesProperties.Size size) {
         this.size = size;
     }
 
@@ -118,13 +139,5 @@ class ClothForUpdateDTO {
 
     public void setShopLink(String shopLink) {
         this.shopLink = shopLink;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
     }
 }

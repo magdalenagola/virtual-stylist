@@ -40,8 +40,14 @@ class WardrobeService {
         wardrobeDataAccess.deleteClothByIdAndUser(id, user);
     }
 
-    Optional<Cloth> getClothById(int clothId){
-        return wardrobeDataAccess.findById(clothId);
+    ClothForDisplayDTO getClothById(int clothId){
+        Optional<Cloth> clothPossibly =  wardrobeDataAccess.findById(clothId);
+        if (!clothPossibly.isPresent()){
+            throw new IllegalArgumentException(); //TODO send response code
+        }
+        Cloth cloth = clothPossibly.get();
+        return modelMapper.map(cloth, ClothForDisplayDTO.class);
+
     }
 
     List<ClothForDisplayWardrobeDTO> getAllClothesByUserId(int userId){
