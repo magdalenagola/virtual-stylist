@@ -38,7 +38,7 @@ class WardrobeService {
     ClothForDisplayDTO getClothById(int clothId){
         Optional<Cloth> clothPossibly =  wardrobeDataAccess.findById(clothId);
         if (!clothPossibly.isPresent()){
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException(); //TODO send response code
         }
         Cloth cloth = clothPossibly.get();
         return modelMapper.map(cloth, ClothForDisplayDTO.class);
