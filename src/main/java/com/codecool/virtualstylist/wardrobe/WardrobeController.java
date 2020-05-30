@@ -34,4 +34,9 @@ public class WardrobeController {
         //TODO findUser
         wardrobeService.deleteCloth(id, new User());
     }
+
+    @PostMapping
+    public void addCloth(@RequestBody ClothForCreationDTO clothForCreation){
+        wardrobeService.addCloth(clothForCreation);
+    }
 }

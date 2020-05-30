@@ -5,6 +5,7 @@ import com.codecool.virtualstylist.user.User;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.StreamingHttpOutputMessage;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -22,7 +23,11 @@ class WardrobeService {
         this.modelMapper = modelMapper;
     }
 
-    void addCloth(Cloth cloth){
+    void addCloth(ClothForCreationDTO clothForCreation){
+        Cloth cloth = modelMapper.map(clothForCreation, Cloth.class);
+        ClothesProperties.BodyPart bodyPart = ClothesProperties.BodyPart.LEGS; //TODO find body part basing on cloth type
+        cloth.setBodyPart(bodyPart);
+        //TODO set user
         wardrobeDataAccess.save(cloth);
     }
 
