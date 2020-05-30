@@ -21,7 +21,7 @@ public class DbInitClothes implements CommandLineRunner {
     public void run(String... args) {
         User adam = userRepository.findAll().get(0);
         Cloth cloth1 = new Cloth("/path.jpg", ClothesProperties.BodyPart.CHEST, ClothesProperties.ClothType.BLOUSE, ClothesProperties.Color.RED,"234","Zara", ClothesProperties.Style.BOHO,"#FavBlouse", ClothesProperties.Size.S,true,"zara.com",adam);
-        Cloth cloth2 = new Cloth("dx", ClothesProperties.BodyPart.CHEST, ClothesProperties.ClothType.JEANS, ClothesProperties.Color.RED,"xd","xd", ClothesProperties.Style.BOHO,"xd", ClothesProperties.Size.S,true,"xd",adam);
+        Cloth cloth2 = new Cloth("/path2.jpg", ClothesProperties.BodyPart.LEGS, ClothesProperties.ClothType.JEANS, ClothesProperties.Color.RED,"543","Zara", ClothesProperties.Style.BOHO,"#FavJeans", ClothesProperties.Size.S,true,"zara.com",adam);
         this.userRepository.save(adam);
         this.wardrobeDataAccess.save(cloth1);
         this.wardrobeDataAccess.save(cloth2);
