@@ -6,12 +6,12 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
-public class DbInit implements CommandLineRunner {
+class DbInitUser implements CommandLineRunner {
 
     private UserDataAccess userRepository;
     private PasswordEncoder passwordEncoder;
 
-    public DbInit(@Qualifier("userPostgresAccess") UserDataAccess userRepository, PasswordEncoder passwordEncoder) {
+    public DbInitUser(@Qualifier("userPostgresAccess") UserDataAccess userRepository, PasswordEncoder passwordEncoder){
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
     }
@@ -20,7 +20,6 @@ public class DbInit implements CommandLineRunner {
     public void run(String... args) {
 
         User adam = new User("adam@adam.pl", passwordEncoder.encode("adam123"), "adam", Gender.MALE);
-
         this.userRepository.save(adam);
     }
 }
