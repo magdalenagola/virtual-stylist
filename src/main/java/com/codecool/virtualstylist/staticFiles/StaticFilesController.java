@@ -24,7 +24,7 @@ public class StaticFilesController {
     }
 
     @PostMapping(value = "/img")
-    public String saveUploadedFile(@RequestBody MultipartFile multipartFile) {
+    public String saveUploadedFile(@RequestParam(name = "file") MultipartFile multipartFile) {
         // TODO check if file is an image
         if (!multipartFile.isEmpty()) {
             try {
@@ -32,7 +32,7 @@ public class StaticFilesController {
                 //TODO check if name doesn't exist
                 String filename = uuid.toString() + ".jpg";
                 byte[] bytes = multipartFile.getBytes();
-                File file = new File(filename);
+                File file = new File("src/main/resources",filename);
                 file.createNewFile();
                 BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(file));
                 stream.write(bytes);
