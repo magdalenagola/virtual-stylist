@@ -33,6 +33,8 @@ class WardrobeService {
 
     void editCloth(ClothForUpdateDTO clothToUpdate){
         Cloth cloth = modelMapper.map(clothToUpdate, Cloth.class);
+        //TODO find user by cloth id
+        //cloth.setUser(user);
         wardrobeDataAccess.save(cloth);
     }
 
