@@ -49,7 +49,7 @@ To Run our application simply type following commands in termial:
 
 ## Usage <a name = "usage"></a>
 
-  https://app.swaggerhub.com/apis-docs/VirtualStylist/VirtualStylistApi/1.0#/
+ https://app.swaggerhub.com/apis-docs/VirtualStylist/VirtualStylistApi/1.1#/
   
 ## Contact <a name = "contact"></a>
  * turcza.magdalena@gmail.com
