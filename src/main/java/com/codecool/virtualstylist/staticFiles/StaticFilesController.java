@@ -23,7 +23,7 @@ public class StaticFilesController {
         return IOUtils.toByteArray(in);
     }
 
-    @PostMapping(value = "/img", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    @PostMapping(value = "/img")
     public String saveUploadedFile(@RequestBody MultipartFile multipartFile) {
         // TODO check if file is an image
         if (!multipartFile.isEmpty()) {
