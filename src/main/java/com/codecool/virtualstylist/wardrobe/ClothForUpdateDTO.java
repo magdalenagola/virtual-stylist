@@ -24,7 +24,6 @@ class ClothForUpdateDTO {
     private boolean hasPattern;
     @JsonProperty("shopLink")
     private String shopLink;
-    private User user;
 
     public ClothForUpdateDTO(){}
     public ClothForUpdateDTO(Integer id, String clothType, String color, String code, String brand, String style, String tag, String size, boolean hasPattern, String shopLink) {
@@ -118,13 +117,5 @@ class ClothForUpdateDTO {
 
     public void setShopLink(String shopLink) {
         this.shopLink = shopLink;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
     }
 }
