@@ -50,9 +50,6 @@ class ClothesProperties {
     enum BodyPart {
         CHEST,
         LEGS,
-        FEET,
-        HEAD,
-        HANDS,
         BODY
     }
 
