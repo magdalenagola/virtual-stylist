@@ -4,7 +4,7 @@ import java.util.*;
 
 class ClothesProperties {
 
-    BodyPart findClothesBodyPart(ClothType clothType){
+    static BodyPart findClothesBodyPart(ClothType clothType){
         Map<BodyPart, ClothType[]> bodyPartsForClothes = createBodyPartsForClothesMap();
         for (Map.Entry<BodyPart, ClothType[]> entry : bodyPartsForClothes.entrySet()) {
             if (Arrays.stream(entry.getValue()).anyMatch(clothType::equals)){
@@ -14,7 +14,7 @@ class ClothesProperties {
         throw new IllegalArgumentException(); //TODO send response code
     }
 
-    private Map<BodyPart, ClothType[]> createBodyPartsForClothesMap() {
+    private static Map<BodyPart, ClothType[]> createBodyPartsForClothesMap() {
         Map<BodyPart, ClothType[]> bodyPartsForClothes = new HashMap<BodyPart, ClothType[]>();
         bodyPartsForClothes.put(BodyPart.CHEST, new ClothType[]{ClothType.BLOUSE, ClothType.TOP, ClothType.TSHIRT});
         bodyPartsForClothes.put(BodyPart.LEGS, new ClothType[]{ClothType.TROUSERS, ClothType.JEANS});
