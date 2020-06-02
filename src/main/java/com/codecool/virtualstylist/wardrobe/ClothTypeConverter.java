@@ -1,10 +1,12 @@
 package com.codecool.virtualstylist.wardrobe;
 
 import javax.persistence.AttributeConverter;
+import javax.persistence.Converter;
 
 import static com.codecool.virtualstylist.wardrobe.ClothesProperties.ClothType.*;
 
 
+@Converter(autoApply = true)
 class ClothTypeConverter implements AttributeConverter<ClothesProperties.ClothType, Integer> {
 
     @Override
