@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.*;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
 @RestController
@@ -24,12 +26,10 @@ public class StaticFilesController {
     }
 
     @PostMapping(value = "/img")
-    public String saveUploadedFile(@RequestParam(name = "file") MultipartFile multipartFile) {
-        // TODO check if file is an image
+    public Map<String, String> saveUploadedFile(@RequestParam(name = "file") MultipartFile multipartFile) {
         if (!multipartFile.isEmpty()) {
             try {
                 UUID uuid = UUID.randomUUID();
-                //TODO check if name doesn't exist
                 String filename = uuid.toString() + ".jpg";
                 byte[] bytes = multipartFile.getBytes();
                 File file = new File("src/main/resources",filename);
@@ -37,7 +37,9 @@ public class StaticFilesController {
                 BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(file));
                 stream.write(bytes);
                 stream.close();
-                return filename;
+                Map<String, String> fileNameJson = new HashMap<>();
+                fileNameJson.put("fileName", filename);
+                return fileNameJson;
             } catch (Exception e) {
                 throw new IllegalArgumentException(); //TODO send response code
             }
