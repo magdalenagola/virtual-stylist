@@ -17,11 +17,11 @@ public class Cloth {
     private String imageName;
 
     @Column(nullable = false)
-    @Enumerated(EnumType.STRING)
+    @Convert(converter = BodyPartConverter.class)
     private ClothesProperties.BodyPart bodyPart;
 
     @Column(nullable = false)
-    @Enumerated(EnumType.STRING)
+    @Convert(converter = ClothTypeConverter.class)
     private ClothesProperties.ClothType clothType;
 
     @Column(nullable = false)
@@ -33,7 +33,7 @@ public class Cloth {
     private String brand;
 
     @Column(nullable = false)
-    @Enumerated(EnumType.STRING)
+    @Convert(converter = StyleConverter.class)
     private ClothesProperties.Style style;
 
     private String tag;
