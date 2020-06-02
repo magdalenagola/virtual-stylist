@@ -25,7 +25,7 @@ public class Cloth {
     private ClothesProperties.ClothType clothType;
 
     @Column(nullable = false)
-    @Enumerated(EnumType.STRING)
+    @Convert(converter = ColorConverter.class)
     private ClothesProperties.Color color;
 
     private String code;
