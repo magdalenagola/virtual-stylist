@@ -4,8 +4,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class ClothForCreationDTO {
 
-    @JsonProperty("imagePath")
-    private String imagePath;
+    @JsonProperty("imageName")
+    private String imageName;
 
     @JsonProperty("clothType")
     private String clothType;
@@ -37,8 +37,8 @@ public class ClothForCreationDTO {
     public ClothForCreationDTO() {
     }
 
-    public ClothForCreationDTO(String imagePath, String clothType, String color, String code, String brand, String style, String tag, String size, boolean hasPattern, String shopLink) {
-        this.imagePath = imagePath;
+    public ClothForCreationDTO(String imageName, String clothType, String color, String code, String brand, String style, String tag, String size, boolean hasPattern, String shopLink) {
+        this.imageName = imageName;
         this.clothType = clothType;
         this.color = color;
         this.code = code;
@@ -50,12 +50,12 @@ public class ClothForCreationDTO {
         this.shopLink = shopLink;
     }
 
-    public String getImagePath() {
-        return imagePath;
+    public String getImageName() {
+        return imageName;
     }
 
-    public void setImagePath(String imagePath) {
-        this.imagePath = imagePath;
+    public void setImageName(String imageName) {
+        this.imageName = imageName;
     }
 
     public String getClothType() {
