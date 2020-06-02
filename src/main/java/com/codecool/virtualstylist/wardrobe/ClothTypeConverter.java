@@ -5,7 +5,7 @@ import javax.persistence.AttributeConverter;
 import static com.codecool.virtualstylist.wardrobe.ClothesProperties.ClothType.*;
 
 
-public class ClothTypeConverter implements AttributeConverter<ClothesProperties.ClothType, Integer> {
+class ClothTypeConverter implements AttributeConverter<ClothesProperties.ClothType, Integer> {
 
     @Override
     public Integer convertToDatabaseColumn(ClothesProperties.ClothType clothType) {
