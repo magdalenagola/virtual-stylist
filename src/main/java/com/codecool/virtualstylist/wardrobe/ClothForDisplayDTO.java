@@ -5,7 +5,7 @@ public class ClothForDisplayDTO {
 
     private Integer id;
 
-    private String imagePath;
+    private String imageName;
 
     private ClothesProperties.BodyPart bodyPart;
 
@@ -30,9 +30,9 @@ public class ClothForDisplayDTO {
     public ClothForDisplayDTO() {
     }
 
-    public ClothForDisplayDTO(Integer id, String imagePath, ClothesProperties.BodyPart bodyPart, ClothesProperties.ClothType clothType, ClothesProperties.Color color, String code, String brand, ClothesProperties.Style style, String tag, ClothesProperties.Size size, boolean hasPattern, String shopLink) {
+    public ClothForDisplayDTO(Integer id, String imageName, ClothesProperties.BodyPart bodyPart, ClothesProperties.ClothType clothType, ClothesProperties.Color color, String code, String brand, ClothesProperties.Style style, String tag, ClothesProperties.Size size, boolean hasPattern, String shopLink) {
         this.id = id;
-        this.imagePath = imagePath;
+        this.imageName = imageName;
         this.bodyPart = bodyPart;
         this.clothType = clothType;
         this.color = color;
@@ -53,12 +53,12 @@ public class ClothForDisplayDTO {
         this.id = id;
     }
 
-    public String getImagePath() {
-        return imagePath;
+    public String getImageName() {
+        return imageName;
     }
 
-    public void setImagePath(String imagePath) {
-        this.imagePath = imagePath;
+    public void setImageName(String imageName) {
+        this.imageName = imageName;
     }
 
     public ClothesProperties.BodyPart getBodyPart() {
