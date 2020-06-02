@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.StreamingHttpOutputMessage;
 import org.springframework.stereotype.Service;
 
+import javax.swing.text.html.Option;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -31,11 +32,20 @@ class WardrobeService {
         wardrobeDataAccess.save(cloth);
     }
 
-    void editCloth(ClothForUpdateDTO clothToUpdate){
-        Cloth cloth = modelMapper.map(clothToUpdate, Cloth.class);
-        //TODO find user by cloth id
-        //cloth.setUser(user);
-        wardrobeDataAccess.save(cloth);
+    void editCloth(ClothForUpdateDTO cloth){
+        Optional<Cloth> clothToUpdate = wardrobeDataAccess.findById(cloth.getId());
+        String imageName;
+        if (clothToUpdate.isPresent())
+            imageName = clothToUpdate.get().getImageName();
+        else
+            throw new IllegalArgumentException();
+        Cloth newCloth = modelMapper.map(cloth, Cloth.class);
+        ClothesProperties.BodyPart bodyPart = ClothesProperties.findClothesBodyPart(newCloth.getClothType());
+        newCloth.setBodyPart(bodyPart);
+        newCloth.setImageName(imageName);
+        //TODO find user by newCloth id
+        //newCloth.setUser(user);
+        wardrobeDataAccess.save(newCloth);
     }
 
     void deleteCloth(Integer id, User user){
