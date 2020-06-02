@@ -25,7 +25,7 @@ class WardrobeService {
 
     void addCloth(ClothForCreationDTO clothForCreation){
         Cloth cloth = modelMapper.map(clothForCreation, Cloth.class);
-        ClothesProperties.BodyPart bodyPart = ClothesProperties.BodyPart.LEGS; //TODO find body part basing on cloth type
+        ClothesProperties.BodyPart bodyPart = ClothesProperties.findClothesBodyPart(cloth.getClothType());
         cloth.setBodyPart(bodyPart);
         //TODO set user
         wardrobeDataAccess.save(cloth);
@@ -33,6 +33,8 @@ class WardrobeService {
 
     void editCloth(ClothForUpdateDTO clothToUpdate){
         Cloth cloth = modelMapper.map(clothToUpdate, Cloth.class);
+        //TODO find user by cloth id
+        //cloth.setUser(user);
         wardrobeDataAccess.save(cloth);
     }
 

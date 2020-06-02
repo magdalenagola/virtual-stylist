@@ -6,8 +6,27 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import java.util.*;
+
 class ClothesProperties {
 
+    static BodyPart findClothesBodyPart(ClothType clothType){
+        Map<BodyPart, ClothType[]> bodyPartsForClothes = createBodyPartsForClothesMap();
+        for (Map.Entry<BodyPart, ClothType[]> entry : bodyPartsForClothes.entrySet()) {
+            if (Arrays.stream(entry.getValue()).anyMatch(clothType::equals)){
+                return entry.getKey();
+            }
+        }
+        throw new IllegalArgumentException(); //TODO send response code
+    }
+
+    private static Map<BodyPart, ClothType[]> createBodyPartsForClothesMap() {
+        Map<BodyPart, ClothType[]> bodyPartsForClothes = new HashMap<BodyPart, ClothType[]>();
+        bodyPartsForClothes.put(BodyPart.CHEST, new ClothType[]{ClothType.BLOUSE, ClothType.TOP, ClothType.TSHIRT});
+        bodyPartsForClothes.put(BodyPart.LEGS, new ClothType[]{ClothType.TROUSERS, ClothType.JEANS});
+        bodyPartsForClothes.put(BodyPart.BODY, new ClothType[]{ClothType.DRESS});
+        return bodyPartsForClothes;
+    }
 
     static Map<String, List<String>> createOptionsMap() {
         Map<String,List<String>>options = new LinkedHashMap<>();
@@ -46,9 +65,6 @@ class ClothesProperties {
     enum BodyPart {
         CHEST,
         LEGS,
-        FEET,
-        HEAD,
-        HANDS,
         BODY
     }
 
