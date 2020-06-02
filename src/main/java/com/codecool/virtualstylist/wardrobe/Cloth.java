@@ -14,7 +14,7 @@ public class Cloth {
     private Integer id;
 
     @Column(nullable = false)
-    private String imagePath;
+    private String imageName;
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
@@ -55,8 +55,8 @@ public class Cloth {
     public Cloth() {
     }
 
-    public Cloth(String imagePath, ClothesProperties.BodyPart bodyPart, ClothesProperties.ClothType clothType, ClothesProperties.Color color, String code, String brand, ClothesProperties.Style style, String tag, ClothesProperties.Size size, boolean hasPattern, String shopLink, User user) {
-        this.imagePath = imagePath;
+    public Cloth(String imageName, ClothesProperties.BodyPart bodyPart, ClothesProperties.ClothType clothType, ClothesProperties.Color color, String code, String brand, ClothesProperties.Style style, String tag, ClothesProperties.Size size, boolean hasPattern, String shopLink, User user) {
+        this.imageName = imageName;
         this.bodyPart = bodyPart;
         this.clothType = clothType;
         this.color = color;
@@ -79,12 +79,12 @@ public class Cloth {
         this.id = id;
     }
 
-    public String getImagePath() {
-        return imagePath;
+    public String getImageName() {
+        return imageName;
     }
 
-    public void setImagePath(String imagePath) {
-        this.imagePath = imagePath;
+    public void setImageName(String imagePath) {
+        this.imageName = imagePath;
     }
 
     public ClothesProperties.BodyPart getBodyPart() {
