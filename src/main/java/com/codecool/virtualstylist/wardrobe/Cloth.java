@@ -38,7 +38,7 @@ public class Cloth {
 
     private String tag;
 
-    @Enumerated(EnumType.STRING)
+    @Convert(converter = SizeConverter.class)
     private ClothesProperties.Size size;
 
     @Column(nullable = false)
