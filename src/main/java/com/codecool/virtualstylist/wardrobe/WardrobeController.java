@@ -2,6 +2,7 @@ package com.codecool.virtualstylist.wardrobe;
 
 import com.codecool.virtualstylist.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,8 +21,12 @@ public class WardrobeController {
     }
 
     @GetMapping
-    public List<ClothForDisplayWardrobeDTO> getAllClothes(){
-        return wardrobeService.getAllClothesByUserId(1);
+    public Page<ClothForDisplayWardrobeDTO> getAllClothes(
+            @RequestParam(defaultValue = "0") Integer pageNo,
+            @RequestParam(defaultValue = "50")Integer pageSize,
+            @RequestParam(defaultValue = "clothType") String sortBy
+    ){
+        return wardrobeService.getAllClothesByUserId(1, pageNo, pageSize, sortBy);
     }
 
     @GetMapping("/{id}")

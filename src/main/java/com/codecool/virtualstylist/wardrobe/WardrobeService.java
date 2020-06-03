@@ -5,6 +5,7 @@ import com.codecool.virtualstylist.user.User;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,6 +21,10 @@ class WardrobeService {
     public WardrobeService(@Qualifier("wardrobeDataAccess") WardrobeDataAccess wardrobeDataAccess, ModelMapper modelMapper) {
         this.wardrobeDataAccess = wardrobeDataAccess;
         this.modelMapper = modelMapper;
+    }
+
+    Integer countUserClothes(int userId){
+        return wardrobeDataAccess.countAllByUserId(userId);
     }
 
     void addCloth(ClothForCreationDTO clothForCreation){
@@ -60,10 +65,19 @@ class WardrobeService {
 
     }
 
-    List<ClothForDisplayWardrobeDTO> getAllClothesByUserId(int userId){
-        List<Cloth> clothes =  wardrobeDataAccess.findAllByUser_Id(userId);
-        return clothes.stream()
+    Page<ClothForDisplayWardrobeDTO> getAllClothesByUserId(int userId, Integer pageNo, Integer pageSize, String sortBy){
+        List<Cloth> clothes;
+        List<ClothForDisplayWardrobeDTO> clothesForDisplay;
+        Pageable paging = PageRequest.of(pageNo, pageSize, Sort.by(sortBy));
+        Page<Cloth> clothesPagedResult =  wardrobeDataAccess.findAllByUser_Id(userId, paging);
+        if(clothesPagedResult.hasContent()) {
+            clothes = clothesPagedResult.getContent();
+        } else {
+            throw new IllegalArgumentException();
+        }
+        clothesForDisplay = clothes.stream()
                 .map(cloth -> modelMapper.map(cloth,ClothForDisplayWardrobeDTO.class))
                 .collect(Collectors.toList());
+        return new PageImpl<ClothForDisplayWardrobeDTO>(clothesForDisplay, paging, clothesForDisplay.size());
     }
 }
