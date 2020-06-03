@@ -20,8 +20,12 @@ public class WardrobeController {
     }
 
     @GetMapping
-    public List<ClothForDisplayWardrobeDTO> getAllClothes(){
-        return wardrobeService.getAllClothesByUserId(1);
+    public List<ClothForDisplayWardrobeDTO> getAllClothes(
+            @RequestParam(defaultValue = "0") Integer pageNo,
+            @RequestParam(defaultValue = "50")Integer pageSize,
+            @RequestParam(defaultValue = "clothType") String sortBy
+    ){
+        return wardrobeService.getAllClothesByUserId(1, pageNo, pageSize, sortBy);
     }
 
     @GetMapping("/{id}")
