@@ -51,8 +51,8 @@ class WardrobeService {
         wardrobeDataAccess.save(newCloth);
     }
 
-    void deleteCloth(Integer id, User user){
-        wardrobeDataAccess.deleteClothByIdAndUser(id, user);
+    void deleteCloth(Integer id, int userId){
+        wardrobeDataAccess.deleteClothByIdAndUserId(id, userId);
     }
 
     ClothForDisplayDTO getClothById(int clothId){
