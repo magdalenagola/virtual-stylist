@@ -3,6 +3,7 @@ package com.codecool.virtualstylist.wardrobe;
 import com.codecool.virtualstylist.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,17 +22,17 @@ public class WardrobeController {
     }
 
     @GetMapping
-    public Page<ClothForDisplayWardrobeDTO> getAllClothes(
+    public ResponseEntity<Page<ClothForDisplayWardrobeDTO>> getAllClothes(
             @RequestParam(defaultValue = "0") Integer pageNo,
             @RequestParam(defaultValue = "50")Integer pageSize,
-            @RequestParam(defaultValue = "clothType") String sortBy
+            @RequestParam(defaultValue = "id") String sortBy
     ){
-        return wardrobeService.getAllClothesByUserId(1, pageNo, pageSize, sortBy);
+        return ResponseEntity.ok(wardrobeService.getAllClothesByUserId(1, pageNo, pageSize, sortBy));
     }
 
     @GetMapping("/{id}")
-    public ClothForDisplayDTO getCloth(@PathVariable("id") Integer id){
-        return wardrobeService.getClothById(id);
+    public ResponseEntity<ClothForDisplayDTO> getCloth(@PathVariable("id") Integer id){
+        return ResponseEntity.ok(wardrobeService.getClothById(id));
     }
 
     @PutMapping
