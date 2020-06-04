@@ -53,7 +53,10 @@ class WardrobeService {
     }
 
     void deleteCloth(Integer id, int userId){
-        wardrobeDataAccess.deleteClothByIdAndUserId(id, userId);
+        if(wardrobeDataAccess.findById(id).isPresent())
+            wardrobeDataAccess.deleteClothByIdAndUserId(id, userId);
+        else
+            throw new IllegalArgumentException();//TODO send response code
     }
 
     ClothForDisplayDTO getClothById(int clothId){
