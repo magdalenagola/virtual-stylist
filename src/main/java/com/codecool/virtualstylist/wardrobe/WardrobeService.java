@@ -1,11 +1,12 @@
 package com.codecool.virtualstylist.wardrobe;
 
 
-import com.codecool.virtualstylist.user.User;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.data.domain.*;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -65,19 +66,17 @@ class WardrobeService {
 
     }
 
-    Page<ClothForDisplayWardrobeDTO> getAllClothesByUserId(int userId, Integer pageNo, Integer pageSize, String sortBy){
+    Page<ClothForDisplayWardrobeDTO> getAllClothesByUserId(int userId, Pageable pageable){
         List<Cloth> clothes;
-        List<ClothForDisplayWardrobeDTO> clothesForDisplay;
-        Pageable paging = PageRequest.of(pageNo, pageSize, Sort.by(sortBy));
-        Page<Cloth> clothesPagedResult =  wardrobeDataAccess.findAllByUser_Id(userId, paging);
+        Page<Cloth> clothesPagedResult =  wardrobeDataAccess.findAllByUser_Id(userId, pageable);
         if(clothesPagedResult.hasContent()) {
             clothes = clothesPagedResult.getContent();
         } else {
             throw new IllegalArgumentException();
         }
-        clothesForDisplay = clothes.stream()
+        List<ClothForDisplayWardrobeDTO> clothesForDisplay = clothes.stream()
                 .map(cloth -> modelMapper.map(cloth,ClothForDisplayWardrobeDTO.class))
                 .collect(Collectors.toList());
-        return new PageImpl<ClothForDisplayWardrobeDTO>(clothesForDisplay, paging, clothesForDisplay.size());
+        return new PageImpl<>(clothesForDisplay, pageable, wardrobeDataAccess.countAllByUserId(userId));
     }
 }
