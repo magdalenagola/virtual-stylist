@@ -2,6 +2,9 @@ package com.codecool.virtualstylist.wardrobe;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,12 +22,12 @@ public class WardrobeController {
     }
 
     @GetMapping
-    public ResponseEntity<Page<ClothForDisplayWardrobeDTO>> getAllClothes(
-            @RequestParam(defaultValue = "0") Integer pageNo,
-            @RequestParam(defaultValue = "50")Integer pageSize,
-            @RequestParam(defaultValue = "id") String sortBy
-    ){
-        return ResponseEntity.ok(wardrobeService.getAllClothesByUserId(1, pageNo, pageSize, sortBy));
+    public ResponseEntity<Page<ClothForDisplayWardrobeDTO>> getAllClothes(@PageableDefault(
+            size = 50,
+            sort = "id",
+            direction = Sort.Direction.ASC
+    ) Pageable pageable){
+        return ResponseEntity.ok(wardrobeService.getAllClothesByUserId(1, pageable));
     }
 
 
