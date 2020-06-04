@@ -2,6 +2,7 @@ package com.codecool.virtualstylist.wardrobe;
 
 import com.codecool.virtualstylist.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,7 +22,7 @@ public class WardrobeController {
     }
 
     @GetMapping
-    public ResponseEntity getAllClothes(
+    public ResponseEntity<Page<ClothForDisplayWardrobeDTO>> getAllClothes(
             @RequestParam(defaultValue = "0") Integer pageNo,
             @RequestParam(defaultValue = "50")Integer pageSize,
             @RequestParam(defaultValue = "id") String sortBy
@@ -30,7 +31,7 @@ public class WardrobeController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity getCloth(@PathVariable("id") Integer id){
+    public ResponseEntity<ClothForDisplayDTO> getCloth(@PathVariable("id") Integer id){
         return ResponseEntity.ok(wardrobeService.getClothById(id));
     }
 
