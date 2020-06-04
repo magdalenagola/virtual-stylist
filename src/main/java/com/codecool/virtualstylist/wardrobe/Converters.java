@@ -11,7 +11,7 @@ import static com.codecool.virtualstylist.wardrobe.ClothesProperties.Style.*;
 class Converters {
 
     @Converter(autoApply = true)
-    class ColorConverter implements AttributeConverter<ClothesProperties.Color, Integer> {
+    static class ColorConverter implements AttributeConverter<ClothesProperties.Color, Integer> {
 
         @Override
         public Integer convertToDatabaseColumn(ClothesProperties.Color attribute) {
@@ -85,7 +85,7 @@ class Converters {
 
 
     @Converter(autoApply = true)
-    class BodyPartConverter implements AttributeConverter<ClothesProperties.BodyPart, Integer> {
+    static class BodyPartConverter implements AttributeConverter<ClothesProperties.BodyPart, Integer> {
 
         @Override
         public Integer convertToDatabaseColumn(ClothesProperties.BodyPart bodyPart) {
@@ -119,7 +119,7 @@ class Converters {
 
 
     @Converter(autoApply = true)
-    class ClothTypeConverter implements AttributeConverter<ClothesProperties.ClothType, Integer> {
+    static class ClothTypeConverter implements AttributeConverter<ClothesProperties.ClothType, Integer> {
 
         @Override
         public Integer convertToDatabaseColumn(ClothesProperties.ClothType clothType) {
@@ -165,7 +165,7 @@ class Converters {
 
 
     @Converter(autoApply = true)
-    class SizeConverter implements AttributeConverter<ClothesProperties.Size, Integer> {
+    static class SizeConverter implements AttributeConverter<ClothesProperties.Size, Integer> {
 
         @Override
         public Integer convertToDatabaseColumn(ClothesProperties.Size attribute) {
@@ -214,7 +214,7 @@ class Converters {
 
 
     @Converter(autoApply = true)
-    class StyleConverter implements AttributeConverter<ClothesProperties.Style, Integer> {
+    static class StyleConverter implements AttributeConverter<ClothesProperties.Style, Integer> {
 
         @Override
         public Integer convertToDatabaseColumn(ClothesProperties.Style style) {
