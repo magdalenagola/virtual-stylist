@@ -165,7 +165,7 @@ class Converters {
 
 
     @Converter(autoApply = true)
-    public class SizeConverter implements AttributeConverter<ClothesProperties.Size, Integer> {
+    class SizeConverter implements AttributeConverter<ClothesProperties.Size, Integer> {
 
         @Override
         public Integer convertToDatabaseColumn(ClothesProperties.Size attribute) {
