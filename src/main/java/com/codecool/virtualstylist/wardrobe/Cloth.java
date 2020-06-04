@@ -17,15 +17,15 @@ public class Cloth {
     private String imageName;
 
     @Column(nullable = false)
-    @Convert(converter = BodyPartConverter.class)
+    @Convert(converter = Converters.BodyPartConverter.class)
     private ClothesProperties.BodyPart bodyPart;
 
     @Column(nullable = false)
-    @Convert(converter = ClothTypeConverter.class)
+    @Convert(converter = Converters.ClothTypeConverter.class)
     private ClothesProperties.ClothType clothType;
 
     @Column(nullable = false)
-    @Convert(converter = ColorConverter.class)
+    @Convert(converter = Converters.ColorConverter.class)
     private ClothesProperties.Color color;
 
     private String code;
@@ -33,12 +33,12 @@ public class Cloth {
     private String brand;
 
     @Column(nullable = false)
-    @Convert(converter = StyleConverter.class)
+    @Convert(converter = Converters.StyleConverter.class)
     private ClothesProperties.Style style;
 
     private String tag;
 
-    @Convert(converter = SizeConverter.class)
+    @Convert(converter = Converters.SizeConverter.class)
     private ClothesProperties.Size size;
 
     @Column(nullable = false)
