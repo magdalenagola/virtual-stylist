@@ -52,7 +52,7 @@ public class WardrobeController {
     }
 
     @PostMapping
-    public ResponseEntity addCloth(@RequestBody ClothForCreationDTO clothForCreation, HttpServletRequest request){
+    public ResponseEntity addCloth(@RequestBody ClothForCreationDTO clothForCreation){
         wardrobeService.addCloth(clothForCreation);
         return ResponseEntity.noContent().build();
     }
