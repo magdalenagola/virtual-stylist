@@ -5,6 +5,7 @@ import com.codecool.virtualstylist.wardrobe.Cloth;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "user_details")
@@ -32,6 +33,12 @@ public class User {
             cascade = CascadeType.ALL,
             orphanRemoval = true)
     private List<Session> sessions;
+
+    @ManyToMany
+    @JoinTable(name = "user_role",
+            joinColumns = { @JoinColumn(name = "user_id",referencedColumnName = "id") },
+            inverseJoinColumns = { @JoinColumn(name = "role_id",referencedColumnName = "id") })
+    private Set<Role> roles;
 
     public User() {}
 
@@ -102,5 +109,13 @@ public class User {
 
     public void setSessions(List<Session> sessions) {
         this.sessions = sessions;
+    }
+
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
     }
 }
