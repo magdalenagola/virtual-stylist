@@ -10,10 +10,19 @@ public class Role {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
-    private String name;
+    @Enumerated(EnumType.STRING)
+    private RoleOptions name;
 
     @ManyToMany(mappedBy = "roles")
     private Set<User> users;
+
+
+    public Role() {
+    }
+
+    public Role(RoleOptions name) {
+        this.name = name;
+    }
 
     public Integer getId() {
         return id;
@@ -23,11 +32,11 @@ public class Role {
         this.id = id;
     }
 
-    public String getName() {
+    public RoleOptions getName() {
         return name;
     }
 
-    public void setName(String name) {
+    public void setName(RoleOptions name) {
         this.name = name;
     }
 
