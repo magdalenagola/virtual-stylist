@@ -21,12 +21,12 @@ public class UserForRegistrationDTO {
     private String gender;
 
     @JsonProperty("roles")
-    private Set<Role> roles;
+    private Set<String> roles;
 
     public UserForRegistrationDTO() {
     }
 
-    public UserForRegistrationDTO(String email, String password, String name, String gender, Set<Role> roles) {
+    public UserForRegistrationDTO(String email, String password, String name, String gender, Set<String> roles) {
         this.email = email;
         this.password = password;
         this.name = name;
@@ -66,11 +66,11 @@ public class UserForRegistrationDTO {
         this.gender = gender;
     }
 
-    public Set<Role> getRoles() {
+    public Set<String> getRoles() {
         return roles;
     }
 
-    public void setRoles(Set<Role> roles) {
+    public void setRoles(Set<String> roles) {
         this.roles = roles;
     }
 }
