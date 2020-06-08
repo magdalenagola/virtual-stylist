@@ -1,6 +1,7 @@
 package com.codecool.virtualstylist.security;
 
 
+import com.codecool.virtualstylist.user.UserDetailsImpl;
 import org.springframework.stereotype.Component;
 import java.util.Date;
 
