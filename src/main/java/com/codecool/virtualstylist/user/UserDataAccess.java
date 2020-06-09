@@ -8,6 +8,6 @@ import java.util.Optional;
 @Repository("userPostgresAccess")
 public interface UserDataAccess extends JpaRepository<User,Integer> {
 
-    Optional<User> findByEmail(String email);
+    Optional<User> findUserByEmail(String email);
     Boolean existsByEmail(String email);
 }
