@@ -4,12 +4,16 @@ import com.codecool.virtualstylist.security.JwtUtility;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.context.request.RequestAttributes;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
+import javax.servlet.http.HttpServletRequest;
+import java.util.Arrays;
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 
@@ -63,4 +67,13 @@ public class AuthService {
         userRepository.save(user);
         return true;
     }
+
+    public User findUserByEmail(){
+        String token = jwtUtility.getAccessToken();
+        String userEmail = jwtUtility.getUserNameFromJwtToken(token);
+        return userRepository.findUserByEmail(userEmail)
+                             .orElseThrow(() -> new RuntimeException("Error: User is not found."));
+    }
+
+
 }
