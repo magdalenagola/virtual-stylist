@@ -13,7 +13,7 @@ public class Role {
     @Enumerated(EnumType.STRING)
     private RoleOptions name;
 
-    @ManyToMany(mappedBy = "roles")
+    @ManyToMany(mappedBy = "roles",fetch = FetchType.EAGER)
     private Set<User> users;
 
 
