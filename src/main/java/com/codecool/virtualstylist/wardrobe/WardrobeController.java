@@ -1,5 +1,6 @@
 package com.codecool.virtualstylist.wardrobe;
 
+import com.codecool.virtualstylist.user.AuthService;
 import com.codecool.virtualstylist.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
