@@ -6,6 +6,9 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @Service
 class DbInitUser implements CommandLineRunner {
 
@@ -23,11 +26,13 @@ class DbInitUser implements CommandLineRunner {
     public void run(String... args) {
 
         User adam = new User("adam@adam.pl", passwordEncoder.encode("adam123"), "adam", Gender.MALE);
-        this.userRepository.save(adam);
-
         Role userRoleInit = new Role(RoleOptions.ROLE_USER);
         Role adminRoleInit = new Role(RoleOptions.ROLE_ADMIN);
-        roleRepository.save(userRoleInit);
-        roleRepository.save(adminRoleInit);
+        roleRepository.saveAndFlush(userRoleInit);
+        roleRepository.saveAndFlush(adminRoleInit);
+        Set<Role> roles = new HashSet<>();
+        roles.add(roleRepository.findByName(RoleOptions.ROLE_USER).get());
+        adam.setRoles(roles);
+        this.userRepository.save(adam);
     }
 }
