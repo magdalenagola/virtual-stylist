@@ -3,6 +3,8 @@ package com.codecool.virtualstylist.security;
 
 import com.codecool.virtualstylist.user.UserDetailsImpl;
 import org.springframework.stereotype.Component;
+
+import java.util.Arrays;
 import java.util.Date;
 
 import org.slf4j.Logger;
@@ -10,11 +12,18 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import io.jsonwebtoken.*;
+import org.springframework.web.context.request.RequestAttributes;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
+
+import javax.servlet.http.HttpServletRequest;
 
 @Component
 public class JwtUtility {
 
     private static final Logger logger = LoggerFactory.getLogger(JwtUtility.class);
+    public static final String AUTHORIZATION_HEADER = "Authorization";
+    public static final String TOKEN_SEPERATOR = " ";
 
     @Value("${virtualstylist.app.jwtSecret}")
     private String jwtSecret;
@@ -55,5 +64,14 @@ public class JwtUtility {
         }
 
         return false;
+    }
+
+    public String getAccessToken(){
+        RequestAttributes requestAttributes = RequestContextHolder.getRequestAttributes();
+        if (requestAttributes instanceof ServletRequestAttributes) {
+            HttpServletRequest request = ((ServletRequestAttributes)requestAttributes).getRequest();
+            return Arrays.asList(request.getHeader(AUTHORIZATION_HEADER).split(TOKEN_SEPERATOR)).get(1);
+        }
+        return null;
     }
 }
