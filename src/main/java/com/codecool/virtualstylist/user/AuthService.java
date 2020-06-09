@@ -36,30 +36,31 @@ public class AuthService {
         }
         userForRegistration.setPassword(passwordEncoder.encode(userForRegistration.getPassword()));
         User user = modelMapper.map(userForRegistration, User.class);
-
         Set<String> stringRoles = userForRegistration.getRoles();
-        Set<Role> roles = new HashSet<>();
+        user.setRoles(getUserRoles(stringRoles));
+        userRepository.save(user);
+        return true;
+    }
 
+    private Set<Role> getUserRoles(Set<String> stringRoles) {
+        Set<Role> roles = new HashSet<>();
         if (stringRoles == null) {
-            Role userRole = roleRepository.findByName(RoleOptions.ROLE_USER)
-                    .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-            roles.add(userRole);
+            roles.add(getRole(RoleOptions.ROLE_USER));
         } else {
             stringRoles.forEach(role -> {
                 if (role.equals("admin")) {
-                    Role adminRole = roleRepository.findByName(RoleOptions.ROLE_ADMIN)
-                            .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-                    roles.add(adminRole);
+                    roles.add(getRole(RoleOptions.ROLE_ADMIN));
                 } else if (role.equals("user")) {
-                    Role userRole = roleRepository.findByName(RoleOptions.ROLE_USER)
-                            .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-                    roles.add(userRole);
+                    roles.add(getRole(RoleOptions.ROLE_USER));
                 }
             });
         }
-        user.setRoles(roles);
-        userRepository.save(user);
-        return true;
+        return roles;
+    }
+
+    private Role getRole(RoleOptions role) {
+        return roleRepository.findByName(role)
+                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
     }
 
     public User findUserByEmail(){
