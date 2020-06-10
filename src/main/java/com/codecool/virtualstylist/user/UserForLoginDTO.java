@@ -8,11 +8,6 @@ public class UserForLoginDTO {
     @JsonProperty("password")
     private String password;
 
-    public UserForLoginDTO(String login, String password) {
-        this.login = login;
-        this.password = password;
-    }
-
     public String getLogin() {
         return login;
     }

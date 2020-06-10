@@ -4,12 +4,6 @@ class ClothForDisplayWardrobeDTO {
     private Integer id;
     private String imageName;
 
-    public ClothForDisplayWardrobeDTO(){}
-
-    public ClothForDisplayWardrobeDTO(Integer id, String imageName) {
-        this.id = id;
-        this.imageName = imageName;
-    }
 
     public Integer getId() {
         return id;
