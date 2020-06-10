@@ -34,7 +34,7 @@ public class User {
             orphanRemoval = true)
     private List<Session> sessions;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_role",
             joinColumns = { @JoinColumn(name = "user_id",referencedColumnName = "id") },
             inverseJoinColumns = { @JoinColumn(name = "role_id",referencedColumnName = "id") })
