@@ -29,11 +29,6 @@ public class User {
             orphanRemoval = true)
     private List<Stylization> stylizations;
 
-    @OneToMany(mappedBy = "user",
-            cascade = CascadeType.ALL,
-            orphanRemoval = true)
-    private List<Session> sessions;
-
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_role",
             joinColumns = { @JoinColumn(name = "user_id",referencedColumnName = "id") },
@@ -101,14 +96,6 @@ public class User {
 
     public void setStylizations(List<Stylization> stylizations) {
         this.stylizations = stylizations;
-    }
-
-    public List<Session> getSessions() {
-        return sessions;
-    }
-
-    public void setSessions(List<Session> sessions) {
-        this.sessions = sessions;
     }
 
     public Set<Role> getRoles() {
