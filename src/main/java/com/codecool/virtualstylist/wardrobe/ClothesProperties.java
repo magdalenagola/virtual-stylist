@@ -1,5 +1,7 @@
 package com.codecool.virtualstylist.wardrobe;
 
+import com.codecool.virtualstylist.exceptions.ResourceNotFoundException;
+
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -8,11 +10,11 @@ class ClothesProperties {
     static BodyPart findClothesBodyPart(ClothType clothType){
         Map<BodyPart, ClothType[]> bodyPartsForClothes = createBodyPartsForClothesMap();
         for (Map.Entry<BodyPart, ClothType[]> entry : bodyPartsForClothes.entrySet()) {
-            if (Arrays.stream(entry.getValue()).anyMatch(clothType::equals)){
+            if (Arrays.asList(entry.getValue()).contains(clothType)){
                 return entry.getKey();
             }
         }
-        throw new IllegalArgumentException(); //TODO send response code
+        throw new ResourceNotFoundException("BodyPart not found for given clothType!");
     }
 
     private static Map<BodyPart, ClothType[]> createBodyPartsForClothesMap() {

@@ -1,6 +1,7 @@
 package com.codecool.virtualstylist.wardrobe;
 
 
+import com.codecool.virtualstylist.exceptions.ResourceNotFoundException;
 import com.codecool.virtualstylist.user.User;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,9 +34,9 @@ class WardrobeService {
         wardrobeDataAccess.save(cloth);
     }
 
-    void editCloth(ClothForUpdateDTO cloth, User user){
+    void editCloth(ClothForUpdateDTO cloth, User user) throws ResourceNotFoundException {
         Optional<Cloth> clothToUpdate = wardrobeDataAccess.findByIdAndUser_Id(cloth.getId(), user.getId());
-        String imageName = clothToUpdate.orElseThrow(IllegalArgumentException::new).getImageName();
+        String imageName = clothToUpdate.orElseThrow(()->new ResourceNotFoundException("Cloth not found!")).getImageName();
         Cloth newCloth = modelMapper.map(cloth, Cloth.class);
         ClothesProperties.BodyPart bodyPart = ClothesProperties.findClothesBodyPart(newCloth.getClothType());
         newCloth.setBodyPart(bodyPart);
@@ -44,26 +45,26 @@ class WardrobeService {
         wardrobeDataAccess.save(newCloth);
     }
 
-    void deleteCloth(int id, int userId){
+    void deleteCloth(int id, int userId) throws ResourceNotFoundException {
         if(wardrobeDataAccess.existsClothByIdAndUser_Id(id,userId))
             wardrobeDataAccess.deleteClothByIdAndUserId(id, userId);
         else
-            throw new IllegalArgumentException();//TODO send response code
+            throw new ResourceNotFoundException("Cloth not found for given user!");
     }
 
-    ClothForDisplayDTO getClothById(int clothId,int userId){
+    ClothForDisplayDTO getClothById(int clothId,int userId) throws ResourceNotFoundException {
         Optional<Cloth> clothPossibly =  wardrobeDataAccess.findByIdAndUser_Id(clothId,userId);
         return modelMapper.map(clothPossibly
-                .orElseThrow(IllegalArgumentException::new),
+                .orElseThrow(()->new ResourceNotFoundException("Cloth not found!")),
                 ClothForDisplayDTO.class);
 
     }
 
-    Page<ClothForDisplayWardrobeDTO> getAllClothesByUserId(int userId, Pageable pageable){
+    Page<ClothForDisplayWardrobeDTO> getAllClothesByUserId(int userId, Pageable pageable) throws ResourceNotFoundException {
         Page<Cloth> clothesPagedResult =  wardrobeDataAccess.findAllByUser_Id(userId, pageable);
         Optional<List<Cloth>>clothes = Optional.of(clothesPagedResult.getContent());
         List<ClothForDisplayWardrobeDTO> clothesForDisplay = clothes
-                .orElseThrow(IllegalArgumentException::new)
+                .orElseThrow(()->new ResourceNotFoundException("Page not found!"))
                 .stream()
                 .map(cloth -> modelMapper.map(cloth,ClothForDisplayWardrobeDTO.class))
                 .collect(Collectors.toList());

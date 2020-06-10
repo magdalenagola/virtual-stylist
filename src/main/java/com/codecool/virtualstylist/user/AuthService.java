@@ -1,5 +1,6 @@
 package com.codecool.virtualstylist.user;
 
+import com.codecool.virtualstylist.exceptions.ResourceNotFoundException;
 import com.codecool.virtualstylist.security.JwtUtility;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,13 +61,13 @@ public class AuthService {
 
     private Role getRole(RoleOptions role) {
         return roleRepository.findByName(role)
-                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+                .orElseThrow(() -> new ResourceNotFoundException("Error: Role is not found."));
     }
 
     public User findUserByEmail(){
-        String token = jwtUtility.getAccessToken().orElseThrow(() -> new RuntimeException("Error: Token is not found."));;
+        String token = jwtUtility.getAccessToken().orElseThrow(() -> new ResourceNotFoundException("Error: Token is not found."));;
         String userEmail = jwtUtility.getUserNameFromJwtToken(token);
         return userRepository.findUserByEmail(userEmail)
-                             .orElseThrow(() -> new RuntimeException("Error: User is not found."));
+                             .orElseThrow(() -> new ResourceNotFoundException("Error: User is not found."));
     }
 }

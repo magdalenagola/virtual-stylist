@@ -1,5 +1,6 @@
 package com.codecool.virtualstylist.staticFiles;
 
+import com.codecool.virtualstylist.exceptions.ResourceNotFoundException;
 import org.apache.commons.io.IOUtils;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -8,6 +9,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 import java.util.UUID;
 
 @RestController
@@ -20,8 +22,10 @@ public class StaticFilesController {
     )
     public @ResponseBody
     byte[] getImageWithMediaType(@PathVariable("fileName") String fileName) throws IOException {
-        InputStream in = getClass().getClassLoader()
-                .getResourceAsStream(fileName);
+        InputStream in = Optional.ofNullable(getClass()
+                .getClassLoader()
+                .getResourceAsStream(fileName))
+                .orElseThrow(ResourceNotFoundException::new);
         return IOUtils.toByteArray(in);
     }
 
