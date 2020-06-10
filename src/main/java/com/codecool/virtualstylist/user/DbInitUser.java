@@ -16,6 +16,7 @@ class DbInitUser implements CommandLineRunner {
     private PasswordEncoder passwordEncoder;
     private RoleDataAccess roleRepository;
 
+    @Autowired
     public DbInitUser(@Qualifier("userPostgresAccess") UserDataAccess userRepository, PasswordEncoder passwordEncoder, @Qualifier("userRolePostgresAccess") RoleDataAccess roleRepository){
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
