@@ -2,7 +2,9 @@ package com.codecool.virtualstylist.staticFiles;
 
 import com.codecool.virtualstylist.exceptions.ResourceNotFoundException;
 import org.apache.commons.io.IOUtils;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -25,7 +27,7 @@ public class StaticFilesController {
         InputStream in = Optional.ofNullable(getClass()
                 .getClassLoader()
                 .getResourceAsStream(fileName))
-                .orElseThrow(ResourceNotFoundException::new);
+                .orElseThrow(()-> new ResourceNotFoundException(fileName + " not found!"));
         return IOUtils.toByteArray(in);
     }
 
@@ -51,5 +53,10 @@ public class StaticFilesController {
             System.out.println("File is empty");
             throw new IllegalArgumentException(); //TODO send response code
         }
+    }
+
+    @ExceptionHandler(ResourceNotFoundException.class)
+    public ResponseEntity<String> handleResourceNotFound(ResourceNotFoundException e){
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
     }
 }
