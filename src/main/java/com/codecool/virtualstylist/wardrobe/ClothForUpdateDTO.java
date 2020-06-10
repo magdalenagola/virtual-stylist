@@ -24,19 +24,6 @@ class ClothForUpdateDTO {
     @JsonProperty("shopLink")
     private String shopLink;
 
-    public ClothForUpdateDTO(){}
-    public ClothForUpdateDTO(Integer id, String clothType, String color, String code, String brand, String style, String tag, String size, boolean hasPattern, String shopLink) {
-        this.id = id;
-        this.clothType = clothType;
-        this.color = color;
-        this.code = code;
-        this.brand = brand;
-        this.style = style;
-        this.tag = tag;
-        this.size = size;
-        this.hasPattern = hasPattern;
-        this.shopLink = shopLink;
-    }
 
     public Integer getId() {
         return id;

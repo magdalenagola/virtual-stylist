@@ -23,16 +23,6 @@ public class UserForRegistrationDTO {
     @JsonProperty("roles")
     private Set<String> roles;
 
-    public UserForRegistrationDTO() {
-    }
-
-    public UserForRegistrationDTO(String email, String password, String name, String gender, Set<String> roles) {
-        this.email = email;
-        this.password = password;
-        this.name = name;
-        this.gender = gender;
-        this.roles = roles;
-    }
 
     public String getEmail() {
         return email;
