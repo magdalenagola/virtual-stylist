@@ -2,6 +2,7 @@ package com.codecool.virtualstylist.user;
 
 
 import com.codecool.virtualstylist.exceptions.ResourceAlreadyExistsException;
+import com.codecool.virtualstylist.exceptions.ResourceNotFoundException;
 import com.codecool.virtualstylist.security.JwtUtility;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -61,5 +62,10 @@ public class AuthController {
     @ExceptionHandler(ResourceAlreadyExistsException.class)
     public ResponseEntity<String> handleResourceNotFound(ResourceAlreadyExistsException e) {
         return ResponseEntity.status(HttpStatus.CONFLICT).body(e.getMessage());
+    }
+
+    @ExceptionHandler(ResourceNotFoundException.class)
+    public ResponseEntity<String> handleResourceNotFound(ResourceNotFoundException e){
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
     }
 }
