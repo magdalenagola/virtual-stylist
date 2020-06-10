@@ -21,9 +21,9 @@ import java.util.stream.Collectors;
 @RequestMapping("/auth")
 public class AuthController {
 
-    private AuthService authService;
-    private AuthenticationManager authenticationManager;
-    private JwtUtility jwtUtility;
+    private final AuthService authService;
+    private final AuthenticationManager authenticationManager;
+    private final JwtUtility jwtUtility;
 
     @Autowired
     public AuthController(AuthService authService, AuthenticationManager authenticationManager, JwtUtility jwtUtility) {

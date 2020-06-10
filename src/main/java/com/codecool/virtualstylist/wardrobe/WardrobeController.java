@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/wardrobe")
 public class WardrobeController {
 
-    private WardrobeService wardrobeService;
-    private AuthService authService;
+    private final WardrobeService wardrobeService;
+    private final AuthService authService;
 
     @Autowired
     public WardrobeController(WardrobeService wardrobeService, AuthService authService){
