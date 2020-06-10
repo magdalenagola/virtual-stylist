@@ -64,11 +64,9 @@ public class AuthService {
     }
 
     public User findUserByEmail(){
-        String token = jwtUtility.getAccessToken();
+        String token = jwtUtility.getAccessToken().orElseThrow(() -> new RuntimeException("Error: Token is not found."));;
         String userEmail = jwtUtility.getUserNameFromJwtToken(token);
         return userRepository.findUserByEmail(userEmail)
                              .orElseThrow(() -> new RuntimeException("Error: User is not found."));
     }
-
-
 }
