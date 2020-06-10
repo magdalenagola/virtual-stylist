@@ -9,8 +9,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class DbInitClothes implements CommandLineRunner {
 
-    private UserDataAccess userRepository;
-    private WardrobeDataAccess wardrobeDataAccess;
+    private final UserDataAccess userRepository;
+    private final WardrobeDataAccess wardrobeDataAccess;
 
     public DbInitClothes(@Qualifier("userPostgresAccess") UserDataAccess userRepository, @Qualifier("wardrobeDataAccess") WardrobeDataAccess wardrobeDataAccess) {
         this.userRepository = userRepository;

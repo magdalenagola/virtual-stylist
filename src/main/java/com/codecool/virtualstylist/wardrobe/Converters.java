@@ -5,7 +5,6 @@ import javax.persistence.Converter;
 
 import static com.codecool.virtualstylist.wardrobe.ClothesProperties.BodyPart.*;
 import static com.codecool.virtualstylist.wardrobe.ClothesProperties.ClothType.*;
-import static com.codecool.virtualstylist.wardrobe.ClothesProperties.ClothType.JEANS;
 import static com.codecool.virtualstylist.wardrobe.ClothesProperties.Style.*;
 
 class Converters {

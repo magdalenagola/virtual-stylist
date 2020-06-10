@@ -1,6 +1,5 @@
 package com.codecool.virtualstylist.wardrobe;
 
-import com.codecool.virtualstylist.user.User;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 class ClothForUpdateDTO {

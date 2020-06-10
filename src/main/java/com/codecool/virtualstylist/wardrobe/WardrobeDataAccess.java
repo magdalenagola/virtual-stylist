@@ -1,6 +1,5 @@
 package com.codecool.virtualstylist.wardrobe;
 
-import com.codecool.virtualstylist.user.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.PagingAndSortingRepository;

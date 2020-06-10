@@ -16,8 +16,8 @@ import java.util.stream.Collectors;
 
 @Service
 class WardrobeService {
-    private WardrobeDataAccess wardrobeDataAccess;
-    private ModelMapper modelMapper;
+    private final WardrobeDataAccess wardrobeDataAccess;
+    private final ModelMapper modelMapper;
 
     @Autowired
     public WardrobeService(@Qualifier("wardrobeDataAccess") WardrobeDataAccess wardrobeDataAccess, ModelMapper modelMapper) {

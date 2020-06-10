@@ -14,11 +14,11 @@ import java.util.Set;
 @Service
 public class AuthService {
 
-    private UserDataAccess userRepository;
-    private RoleDataAccess roleRepository;
-    private PasswordEncoder passwordEncoder;
-    private JwtUtility jwtUtility;
-    private ModelMapper modelMapper;
+    private final UserDataAccess userRepository;
+    private final RoleDataAccess roleRepository;
+    private final PasswordEncoder passwordEncoder;
+    private final JwtUtility jwtUtility;
+    private final ModelMapper modelMapper;
 
     @Autowired
     public AuthService(@Qualifier("userPostgresAccess") UserDataAccess userRepository, @Qualifier("userRolePostgresAccess") RoleDataAccess roleRepository, PasswordEncoder passwordEncoder, JwtUtility jwtUtility, ModelMapper modelMapper) {

@@ -12,10 +12,11 @@ import java.util.Set;
 @Service
 class DbInitUser implements CommandLineRunner {
 
-    private UserDataAccess userRepository;
-    private PasswordEncoder passwordEncoder;
-    private RoleDataAccess roleRepository;
+    private final UserDataAccess userRepository;
+    private final PasswordEncoder passwordEncoder;
+    private final RoleDataAccess roleRepository;
 
+    @Autowired
     public DbInitUser(@Qualifier("userPostgresAccess") UserDataAccess userRepository, PasswordEncoder passwordEncoder, @Qualifier("userRolePostgresAccess") RoleDataAccess roleRepository){
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
