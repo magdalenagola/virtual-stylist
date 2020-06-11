@@ -15,15 +15,15 @@ import java.util.Optional;
 import java.util.UUID;
 
 @RestController
-@RequestMapping
+@RequestMapping("/img")
 public class StaticFilesController {
 
     @GetMapping(
             value = "/{fileName}",
             produces = MediaType.IMAGE_JPEG_VALUE
     )
-    public @ResponseBody
-    byte[] getImageWithMediaType(@PathVariable("fileName") String fileName) throws IOException {
+    public @ResponseBody byte[] getImageWithMediaType(@PathVariable("fileName") String fileName)
+            throws IOException {
         InputStream in = Optional.ofNullable(getClass()
                 .getClassLoader()
                 .getResourceAsStream(fileName))
@@ -31,7 +31,7 @@ public class StaticFilesController {
         return IOUtils.toByteArray(in);
     }
 
-    @PostMapping(value = "/img")
+    @PostMapping
     public Map<String, String> saveUploadedFile(@RequestParam(name = "file") MultipartFile multipartFile) {
         if (!multipartFile.isEmpty()) {
             try {

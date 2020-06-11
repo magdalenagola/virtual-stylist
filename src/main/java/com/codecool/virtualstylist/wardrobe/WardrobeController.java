@@ -39,7 +39,7 @@ public class WardrobeController {
     @GetMapping("/{id}")
     public ResponseEntity<ClothForDisplayDTO> getCloth(@PathVariable("id") int id){
         User user = authService.findUserByEmail();
-        return ResponseEntity.ok(wardrobeService.getClothById(user.getId(), user.getId()));
+        return ResponseEntity.ok(wardrobeService.getClothById(id, user.getId()));
     }
 
     @PutMapping
