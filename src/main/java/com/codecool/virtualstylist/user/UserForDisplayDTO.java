@@ -5,7 +5,7 @@ public class UserForDisplayDTO {
 
     private String email;
     private String name;
-    private Gender gender;
+    private String gender;
 
     public String getEmail() {
         return email;
@@ -23,11 +23,11 @@ public class UserForDisplayDTO {
         this.name = name;
     }
 
-    public Gender getGender() {
+    public String getGender() {
         return gender;
     }
 
-    public void setGender(Gender gender) {
+    public void setGender(String gender) {
         this.gender = gender;
     }
 }
