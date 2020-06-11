@@ -60,7 +60,7 @@ public class WardrobeController {
     public ResponseEntity addCloth(@RequestBody ClothForCreationDTO clothForCreation){
         User user = authService.findUserByEmail();
         wardrobeService.addCloth(clothForCreation, user);
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @ExceptionHandler(ResourceNotFoundException.class)
