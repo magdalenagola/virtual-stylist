@@ -19,11 +19,11 @@ import java.util.UUID;
 public class StaticFilesController {
 
     @GetMapping(
-            value = "/{fileName}",
+            value = "/img/{fileName}",
             produces = MediaType.IMAGE_JPEG_VALUE
     )
-    public @ResponseBody
-    byte[] getImageWithMediaType(@PathVariable("fileName") String fileName) throws IOException {
+    public @ResponseBody byte[] getImageWithMediaType(@PathVariable("fileName") String fileName)
+            throws IOException {
         InputStream in = Optional.ofNullable(getClass()
                 .getClassLoader()
                 .getResourceAsStream(fileName))
