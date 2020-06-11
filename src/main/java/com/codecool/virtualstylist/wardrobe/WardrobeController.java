@@ -46,7 +46,7 @@ public class WardrobeController {
     public ResponseEntity editCloth(@RequestBody ClothForUpdateDTO cloth){
         User user = authService.findUserByEmail();
             wardrobeService.editCloth(cloth, user);
-            return ResponseEntity.ok().build();
+            return ResponseEntity.noContent().build();
     }
 
     @DeleteMapping("/{id}")
