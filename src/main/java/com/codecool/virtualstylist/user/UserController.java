@@ -20,6 +20,11 @@ public class UserController {
         this.authService = authService;
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity getUserData(@PathVariable("id") int userId) {
+        return ResponseEntity.ok(userService.getUserById(userId));
+    }
+
     @PutMapping
     public ResponseEntity editUser(@RequestBody UserForUpdateDTO userForUpdateDTO){
         User user = authService.findUserByEmail();
