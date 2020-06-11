@@ -1,6 +1,7 @@
 package com.codecool.virtualstylist.user;
 
 
+import com.codecool.virtualstylist.exceptions.ResourceAlreadyExistsException;
 import com.codecool.virtualstylist.exceptions.ResourceNotFoundException;
 import com.codecool.virtualstylist.security.JwtUtility;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,12 +55,13 @@ public class AuthController {
 
     @PostMapping("/register")
     public ResponseEntity<?> registerUser(@RequestBody UserForRegistrationDTO userForRegistration) {
-        if (authService.addUser(userForRegistration)) {
-            return ResponseEntity.ok("User registered successfully!");
-        }
-        return ResponseEntity
-                .badRequest()
-                .body("Error: Username is already taken!");
+        authService.addUser(userForRegistration);
+        return ResponseEntity.ok("User registered successfully!");
+    }
+
+    @ExceptionHandler(ResourceAlreadyExistsException.class)
+    public ResponseEntity<String> handleResourceNotFound(ResourceAlreadyExistsException e) {
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(e.getMessage());
     }
 
     @ExceptionHandler(ResourceNotFoundException.class)

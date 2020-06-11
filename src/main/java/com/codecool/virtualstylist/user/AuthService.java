@@ -1,5 +1,6 @@
 package com.codecool.virtualstylist.user;
 
+import com.codecool.virtualstylist.exceptions.ResourceAlreadyExistsException;
 import com.codecool.virtualstylist.exceptions.ResourceNotFoundException;
 import com.codecool.virtualstylist.security.JwtUtility;
 import org.modelmapper.ModelMapper;
@@ -31,16 +32,15 @@ public class AuthService {
     }
 
 
-    public boolean addUser(UserForRegistrationDTO userForRegistration) {
+    public void addUser(UserForRegistrationDTO userForRegistration) {
         if (userRepository.existsByEmail(userForRegistration.getEmail())) {
-            return false;
+            throw new ResourceAlreadyExistsException("The email is already registered");
         }
         userForRegistration.setPassword(passwordEncoder.encode(userForRegistration.getPassword()));
         User user = modelMapper.map(userForRegistration, User.class);
         Set<String> stringRoles = userForRegistration.getRoles();
         user.setRoles(getUserRoles(stringRoles));
         userRepository.save(user);
-        return true;
     }
 
     private Set<Role> getUserRoles(Set<String> stringRoles) {
