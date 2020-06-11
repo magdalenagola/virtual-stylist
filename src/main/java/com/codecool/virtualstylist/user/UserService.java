@@ -13,11 +13,13 @@ public class UserService {
 
     private final UserDataAccess userDataAccess;
     private final PasswordEncoder passwordEncoder;
+    private final ModelMapper modelMapper;
 
     @Autowired
-    public UserService(UserDataAccess userDataAccess, PasswordEncoder passwordEncoder) {
+    public UserService(UserDataAccess userDataAccess, PasswordEncoder passwordEncoder, ModelMapper modelMapper) {
         this.userDataAccess = userDataAccess;
         this.passwordEncoder = passwordEncoder;
+        this.modelMapper = modelMapper;
     }
 
 
@@ -31,5 +33,12 @@ public class UserService {
     public void deleteUser(int id) {
         Optional<User> userToDelete = userDataAccess.findUserById(id);
         userDataAccess.delete(userToDelete.orElseThrow(() -> new ResourceNotFoundException("User not found!")));
+    }
+
+    UserForDisplayDTO getUserById(int userId) throws ResourceNotFoundException {
+        Optional<User> userPossibly = userDataAccess.findUserById(userId);
+        return modelMapper.map(userPossibly
+                        .orElseThrow(() -> new ResourceNotFoundException("User not found!")),
+                UserForDisplayDTO.class);
     }
 }
