@@ -56,7 +56,7 @@ public class AuthController {
     @PostMapping("/register")
     public ResponseEntity<?> registerUser(@RequestBody UserForRegistrationDTO userForRegistration) {
         authService.addUser(userForRegistration);
-        return ResponseEntity.ok("User registered successfully!");
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @ExceptionHandler(ResourceAlreadyExistsException.class)
