@@ -31,7 +31,7 @@ public class UserController {
 
     @GetMapping
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
-    public ResponseEntity<Page<UserForDisplayDTO>> getAllUsers(@PageableDefault(
+    public ResponseEntity<Page<UserForDisplayAllDTO>> getAllUsers(@PageableDefault(
             size = 50,
             sort = "email",
             direction = Sort.Direction.ASC
