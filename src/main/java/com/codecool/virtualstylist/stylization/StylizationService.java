@@ -32,7 +32,6 @@ public class StylizationService {
         List<Cloth> clothes = stylizationForCreation.getClothes().stream()
                 .map(clothForDisplay -> modelMapper.map(clothForDisplay, Cloth.class))
                 .collect(Collectors.toList());
-
         Stylization stylization = new Stylization(clothes, stylizationForCreation.getTag(), user);
         stylizationDataAccess.save(stylization);
     }
