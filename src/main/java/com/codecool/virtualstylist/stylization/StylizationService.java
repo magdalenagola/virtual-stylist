@@ -50,4 +50,11 @@ public class StylizationService {
 
         return new PageImpl<>(stylizationsForDisplay,pageable,stylizationDataAccess.countAllByUser_Id(userId));
     }
+
+    public void deleteStylization(int id, User user) throws ResourceNotFoundException{
+        if (!stylizationDataAccess.existsByIdAndUser(id, user)){
+            throw new ResourceNotFoundException("Stylization not found for given user!");
+        }
+        stylizationDataAccess.deleteById(id);
+    }
 }
