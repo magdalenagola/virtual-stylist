@@ -12,6 +12,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/wardrobe")
 public class WardrobeController {
@@ -61,6 +63,13 @@ public class WardrobeController {
         User user = authService.findUserByEmail();
         wardrobeService.addCloth(clothForCreation, user);
         return ResponseEntity.status(HttpStatus.CREATED).build();
+    }
+
+    @GetMapping("bodyPart/{bodyPart}")
+    public ResponseEntity<List<ClothForDisplayWardrobeDTO>> getClothesByBodyPart(@PathVariable("bodyPart") String bodyPart){
+        ClothesProperties.BodyPart enumBodyPart = ClothesProperties.BodyPart.valueOf(bodyPart.toUpperCase());
+        User user = authService.findUserByEmail();
+        return ResponseEntity.ok(wardrobeService.getAllClothesByBodyPart(enumBodyPart, user.getId()));
     }
 
     @ExceptionHandler(ResourceNotFoundException.class)

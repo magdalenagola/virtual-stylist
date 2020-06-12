@@ -70,4 +70,12 @@ class WardrobeService {
                 .collect(Collectors.toList());
         return new PageImpl<>(clothesForDisplay, pageable, wardrobeDataAccess.countAllByUserId(userId));
     }
+
+    List<ClothForDisplayWardrobeDTO> getAllClothesByBodyPart(ClothesProperties.BodyPart bodyPart, int userId){
+        List<Cloth> clothes = wardrobeDataAccess.findAllByBodyPartAndUserId(bodyPart, userId)
+                .orElseThrow(()-> new ResourceNotFoundException("Clothes not found for given body part and user"));
+        return clothes.stream()
+                .map(cloth-> modelMapper.map(cloth, ClothForDisplayWardrobeDTO.class))
+                .collect(Collectors.toList());
+    }
 }
