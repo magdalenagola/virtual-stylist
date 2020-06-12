@@ -54,6 +54,7 @@ public class StylizationService {
         return new PageImpl<>(stylizationsForDisplay,pageable,stylizationDataAccess.countAllByUser_Id(userId));
     }
 
+
     public List<ClothForDisplayStylizationDTO> getAllStylizationsByClothId(int clothId, int userId) {
         final Cloth cloth = wardrobeDataAccess
                 .findByIdAndUser_Id(clothId, userId)
@@ -66,5 +67,12 @@ public class StylizationService {
                     return modelMapper.map(clothes.get(0), ClothForDisplayStylizationDTO.class);
                 })
                 .collect(Collectors.toList());
+    }
+
+    public void deleteStylization(int id, User user) throws ResourceNotFoundException{
+        if (!stylizationDataAccess.existsByIdAndUser(id, user)){
+            throw new ResourceNotFoundException("Stylization not found for given user!");
+        }
+        stylizationDataAccess.deleteById(id);
     }
 }
