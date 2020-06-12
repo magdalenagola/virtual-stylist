@@ -3,14 +3,18 @@ package com.codecool.virtualstylist.stylization;
 import com.codecool.virtualstylist.exceptions.ResourceNotFoundException;
 import com.codecool.virtualstylist.user.AuthService;
 import com.codecool.virtualstylist.user.User;
+import com.codecool.virtualstylist.wardrobe.ClothForDisplayStylizationDTO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
 
 @RestController
 @RequestMapping("/stylization")
@@ -40,6 +44,12 @@ public class StylizationController {
     ) Pageable pageable){
         User user = authService.findUserByEmail();
         return ResponseEntity.ok(stylizationService.getAllStylizations(pageable, user.getId()));
+    }
+
+    @GetMapping("/{clothId}")
+    public ResponseEntity<List<ClothForDisplayStylizationDTO>> getAllStylizationsByClothId(@PathVariable("clothId") int clothId) {
+        User user = authService.findUserByEmail();
+        return ResponseEntity.ok(stylizationService.getAllStylizationsByClothId(clothId, user.getId()));
     }
 
     @DeleteMapping("/{id}")

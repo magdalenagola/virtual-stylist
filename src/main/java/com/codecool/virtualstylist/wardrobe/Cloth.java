@@ -6,6 +6,7 @@ import com.codecool.virtualstylist.stylization.Stylization;
 import com.codecool.virtualstylist.user.User;
 
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 public class Cloth {
@@ -181,6 +182,19 @@ public class Cloth {
 
     public void setStylizations(List<Stylization> stylizations) {
         this.stylizations = stylizations;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Cloth cloth = (Cloth) o;
+        return Objects.equals(id, cloth.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }
 
