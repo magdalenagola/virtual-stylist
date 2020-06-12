@@ -6,6 +6,7 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
 
 import javax.transaction.Transactional;
+import java.util.List;
 import java.util.Optional;
 
 
@@ -17,4 +18,5 @@ interface WardrobeDataAccess extends PagingAndSortingRepository<Cloth,Integer> {
     Integer countAllByUserId(int userId);
     Optional<Cloth> findByIdAndUser_Id(int id, int user_id);
     boolean existsClothByIdAndUser_Id(int id, int userId);
+    Optional<List<Cloth>> findAllByBodyPartAndUserId(ClothesProperties.BodyPart bodyPart, int userId);
 }
