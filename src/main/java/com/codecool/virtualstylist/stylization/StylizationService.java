@@ -1,5 +1,8 @@
 package com.codecool.virtualstylist.stylization;
 
+
+import com.codecool.virtualstylist.user.User;
+import com.codecool.virtualstylist.wardrobe.Cloth;
 import com.codecool.virtualstylist.exceptions.ResourceNotFoundException;
 import com.codecool.virtualstylist.wardrobe.ClothForDisplayStylizationDTO;
 import org.modelmapper.ModelMapper;
@@ -20,9 +23,17 @@ public class StylizationService {
     private final ModelMapper modelMapper;
 
     @Autowired
-    StylizationService(StylizationDataAccess stylizationDataAccess, ModelMapper modelMapper) {
+    public StylizationService(StylizationDataAccess stylizationDataAccess, ModelMapper modelMapper) {
         this.stylizationDataAccess = stylizationDataAccess;
         this.modelMapper = modelMapper;
+    }
+
+    public void addStylization(User user, StylizationForCreationDTO stylizationForCreation) {
+        List<Cloth> clothes = stylizationForCreation.getClothes().stream()
+                .map(clothForDisplay -> modelMapper.map(clothForDisplay, Cloth.class))
+                .collect(Collectors.toList());
+        Stylization stylization = new Stylization(clothes, stylizationForCreation.getTag(), user);
+        stylizationDataAccess.save(stylization);
     }
 
     Page<StylizationForDisplayDTO> getAllStylizations(Pageable pageable, int userId) throws ResourceNotFoundException{

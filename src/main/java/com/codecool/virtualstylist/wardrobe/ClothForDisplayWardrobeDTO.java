@@ -1,6 +1,6 @@
 package com.codecool.virtualstylist.wardrobe;
 
-class ClothForDisplayWardrobeDTO {
+public class ClothForDisplayWardrobeDTO {
     private Integer id;
     private String imageName;
 
