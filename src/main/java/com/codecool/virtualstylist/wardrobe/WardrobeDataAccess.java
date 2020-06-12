@@ -10,7 +10,7 @@ import java.util.Optional;
 
 
 @Repository("wardrobeDataAccess")
-interface WardrobeDataAccess extends PagingAndSortingRepository<Cloth,Integer> {
+public interface WardrobeDataAccess extends PagingAndSortingRepository<Cloth,Integer> {
     Page<Cloth> findAllByUser_Id(int userId, Pageable paging);
     @Transactional
     void deleteClothByIdAndUserId(int clothId, int userId);
