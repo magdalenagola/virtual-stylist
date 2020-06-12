@@ -182,6 +182,16 @@ public class Cloth {
     public void setStylizations(List<Stylization> stylizations) {
         this.stylizations = stylizations;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj == null)
+            return false;
+        if(! (obj instanceof Cloth))
+            return false;
+        Cloth cloth = (Cloth) obj;
+        return this.getId().equals(cloth.getId());
+    }
 }
 
 
