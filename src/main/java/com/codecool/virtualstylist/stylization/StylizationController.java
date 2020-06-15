@@ -18,13 +18,13 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/stylization")
-public class StylizationController {
+class StylizationController {
 
     private final StylizationService stylizationService;
     private final AuthService authService;
 
     @Autowired
-    public StylizationController(StylizationService stylizationService, AuthService authService) {
+    StylizationController(StylizationService stylizationService, AuthService authService) {
         this.stylizationService = stylizationService;
         this.authService = authService;
     }
@@ -37,7 +37,7 @@ public class StylizationController {
     }
 
     @GetMapping
-    public ResponseEntity<Page<StylizationForDisplayDTO>> getAllStylizations(@PageableDefault(
+    ResponseEntity<Page<StylizationForDisplayDTO>> getAllStylizations(@PageableDefault(
             size = 50,
             direction = Sort.Direction.ASC,
             sort = "id"
@@ -47,20 +47,20 @@ public class StylizationController {
     }
 
     @GetMapping("/{clothId}")
-    public ResponseEntity<List<ClothForDisplayStylizationDTO>> getAllStylizationsByClothId(@PathVariable("clothId") int clothId) {
+    ResponseEntity<List<ClothForDisplayStylizationDTO>> getAllStylizationsByClothId(@PathVariable("clothId") int clothId) {
         User user = authService.findUserByEmail();
         return ResponseEntity.ok(stylizationService.getAllStylizationsByClothId(clothId, user.getId()));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity deleteStylizationById(@PathVariable("id") int stylizationId){
+    ResponseEntity deleteStylizationById(@PathVariable("id") int stylizationId){
         User user = authService.findUserByEmail();
         stylizationService.deleteStylization(stylizationId, user);
         return ResponseEntity.noContent().build();
     }
 
     @ExceptionHandler(ResourceNotFoundException.class)
-    public ResponseEntity<String> handleResourceNotFound(ResourceNotFoundException e){
+    private ResponseEntity<String> handleResourceNotFound(ResourceNotFoundException e){
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
     }
 }

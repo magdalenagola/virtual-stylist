@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.List;
 
-public class StylizationForCreationDTO {
+class StylizationForCreationDTO {
 
     @JsonProperty("clothes")
     private List<ClothForDisplayWardrobeDTO> clothes;

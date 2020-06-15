@@ -19,20 +19,20 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
-public class StylizationService {
+class StylizationService {
 
     private final StylizationDataAccess stylizationDataAccess;
     private final ModelMapper modelMapper;
     private final WardrobeDataAccess wardrobeDataAccess;
 
     @Autowired
-    public StylizationService(StylizationDataAccess stylizationDataAccess, ModelMapper modelMapper, @Qualifier("wardrobeDataAccess") WardrobeDataAccess wardrobeDataAccess) {
+    StylizationService(StylizationDataAccess stylizationDataAccess, ModelMapper modelMapper, @Qualifier("wardrobeDataAccess") WardrobeDataAccess wardrobeDataAccess) {
         this.stylizationDataAccess = stylizationDataAccess;
         this.modelMapper = modelMapper;
         this.wardrobeDataAccess = wardrobeDataAccess;
     }
 
-    public void addStylization(User user, StylizationForCreationDTO stylizationForCreation) {
+    void addStylization(User user, StylizationForCreationDTO stylizationForCreation) {
         List<Cloth> clothes = stylizationForCreation.getClothes().stream()
                 .map(clothForDisplay -> modelMapper.map(clothForDisplay, Cloth.class))
                 .collect(Collectors.toList());
@@ -56,7 +56,7 @@ public class StylizationService {
     }
 
 
-    public List<ClothForDisplayStylizationDTO> getAllStylizationsByClothId(int clothId, int userId) {
+    List<ClothForDisplayStylizationDTO> getAllStylizationsByClothId(int clothId, int userId) {
         final Cloth cloth = wardrobeDataAccess
                 .findByIdAndUser_Id(clothId, userId)
                 .orElseThrow(ResourceNotFoundException::new);
@@ -70,7 +70,7 @@ public class StylizationService {
                 .collect(Collectors.toList());
     }
 
-    public void deleteStylization(int id, User user) throws ResourceNotFoundException{
+    void deleteStylization(int id, User user) throws ResourceNotFoundException{
         if (!stylizationDataAccess.existsByIdAndUser(id, user)){
             throw new ResourceNotFoundException("Stylization not found for given user!");
         }
