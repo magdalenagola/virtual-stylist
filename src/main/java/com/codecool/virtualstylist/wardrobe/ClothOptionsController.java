@@ -12,7 +12,7 @@ import java.util.Map;
 class ClothOptionsController {
 
     @GetMapping
-    public Map<String,List<String>> getAllOptions(){
+    Map<String,List<String>> getAllOptions(){
         return ClothesProperties.createOptionsMap();
     }
 

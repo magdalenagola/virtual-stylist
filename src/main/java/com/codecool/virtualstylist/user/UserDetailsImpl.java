@@ -12,12 +12,12 @@ import java.util.stream.Collectors;
 
 public class UserDetailsImpl implements UserDetails {
 
-    private Integer id;
-    private String username;
-    private String email;
+    private final Integer id;
+    private final String username;
+    private final String email;
     @JsonIgnore
-    private String password;
-    private Collection<? extends GrantedAuthority> authorities;
+    private final String password;
+    private final Collection<? extends GrantedAuthority> authorities;
 
 
     public UserDetailsImpl(Integer id, String username, String email, String password,

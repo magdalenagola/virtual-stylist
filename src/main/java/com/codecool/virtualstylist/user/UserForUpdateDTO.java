@@ -1,6 +1,6 @@
 package com.codecool.virtualstylist.user;
 
-public class UserForUpdateDTO {
+class UserForUpdateDTO {
     private String name;
     private Gender gender;
     private String password;

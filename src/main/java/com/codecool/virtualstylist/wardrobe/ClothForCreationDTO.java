@@ -2,7 +2,7 @@ package com.codecool.virtualstylist.wardrobe;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class ClothForCreationDTO {
+class ClothForCreationDTO {
 
     @JsonProperty("imageName")
     private String imageName;

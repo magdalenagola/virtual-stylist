@@ -1,6 +1,6 @@
 package com.codecool.virtualstylist.wardrobe;
 
-import com.codecool.virtualstylist.exceptions.ResourceNotFoundException;
+import com.codecool.virtualstylist.exception.ResourceNotFoundException;
 
 import java.util.*;
 import java.util.stream.Collectors;

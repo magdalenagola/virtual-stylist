@@ -2,7 +2,7 @@ package com.codecool.virtualstylist.user;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class UserForLoginDTO {
+class UserForLoginDTO {
     @JsonProperty("login")
     private String login;
     @JsonProperty("password")
