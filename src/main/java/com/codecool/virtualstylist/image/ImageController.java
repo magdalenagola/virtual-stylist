@@ -16,13 +16,13 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/img")
-public class ImageController {
+class ImageController {
 
     @GetMapping(
             value = "/{fileName}",
             produces = MediaType.IMAGE_JPEG_VALUE
     )
-    public @ResponseBody byte[] getImageWithMediaType(@PathVariable("fileName") String fileName)
+    @ResponseBody byte[] getImageWithMediaType(@PathVariable("fileName") String fileName)
             throws IOException {
         InputStream in = Optional.ofNullable(getClass()
                 .getClassLoader()
@@ -32,7 +32,7 @@ public class ImageController {
     }
 
     @PostMapping
-    public Map<String, String> saveUploadedFile(@RequestParam(name = "file") MultipartFile multipartFile) {
+    Map<String, String> saveUploadedFile(@RequestParam(name = "file") MultipartFile multipartFile) {
         if (!multipartFile.isEmpty()) {
             try {
                 UUID uuid = UUID.randomUUID();
@@ -56,12 +56,12 @@ public class ImageController {
     }
 
     @ExceptionHandler(ResourceNotFoundException.class)
-    public ResponseEntity<String> handleResourceNotFound(ResourceNotFoundException e){
+    private ResponseEntity<String> handleResourceNotFound(ResourceNotFoundException e){
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
     }
 
     @ExceptionHandler(IllegalArgumentException.class)
-    public ResponseEntity<String> handleIllegalArgumentException(IllegalArgumentException e){
+    private ResponseEntity<String> handleIllegalArgumentException(IllegalArgumentException e){
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
     }
 }
