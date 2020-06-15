@@ -2,7 +2,7 @@ package com.codecool.virtualstylist.user;
 
 import java.util.List;
 
-public class JwtResponse {
+class JwtResponse {
 
     private final String token;
     private final Integer id;

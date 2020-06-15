@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 class UserOptionsController {
 
     @GetMapping
-    public Map<String,List<String>> getAllOptions(){
+    Map<String,List<String>> getAllOptions(){
         Map<String, List<String>> options = new LinkedHashMap<>();
         options.put(Gender.class.getSimpleName(), Arrays.stream(Gender.values()).map(Enum::toString).collect(Collectors.toList()));
         return options;

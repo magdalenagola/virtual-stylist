@@ -1,7 +1,7 @@
 package com.codecool.virtualstylist.user;
 
 
-public class UserForDisplayDTO {
+class UserForDisplayDTO {
 
     private String email;
     private String name;

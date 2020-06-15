@@ -14,7 +14,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
-public class UserService {
+class UserService {
 
     private final UserDataAccess userDataAccess;
     private final PasswordEncoder passwordEncoder;
@@ -22,7 +22,7 @@ public class UserService {
     private final RoleDataAccess roleDataAccess;
 
     @Autowired
-    public UserService(UserDataAccess userDataAccess, PasswordEncoder passwordEncoder, ModelMapper modelMapper, RoleDataAccess roleDataAccess) {
+    UserService(UserDataAccess userDataAccess, PasswordEncoder passwordEncoder, ModelMapper modelMapper, RoleDataAccess roleDataAccess) {
         this.userDataAccess = userDataAccess;
         this.passwordEncoder = passwordEncoder;
         this.modelMapper = modelMapper;
@@ -30,14 +30,14 @@ public class UserService {
     }
 
 
-    public void editUser(UserForUpdateDTO userForUpdateDTO, User user) {
+    void editUser(UserForUpdateDTO userForUpdateDTO, User user) {
         user.setName(userForUpdateDTO.getName());
         user.setGender(userForUpdateDTO.getGender());
         user.setPassword(passwordEncoder.encode(userForUpdateDTO.getPassword()));
         userDataAccess.saveAndFlush(user);
     }
 
-    public void deleteUser(int id) {
+    void deleteUser(int id) {
         Optional<User> userToDelete = userDataAccess.findUserById(id);
         userDataAccess.delete(userToDelete.orElseThrow(() -> new ResourceNotFoundException("User not found!")));
     }

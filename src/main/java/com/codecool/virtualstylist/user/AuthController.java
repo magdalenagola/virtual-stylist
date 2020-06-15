@@ -20,21 +20,21 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/auth")
-public class AuthController {
+class AuthController {
 
     private final AuthService authService;
     private final AuthenticationManager authenticationManager;
     private final JwtUtility jwtUtility;
 
     @Autowired
-    public AuthController(AuthService authService, AuthenticationManager authenticationManager, JwtUtility jwtUtility) {
+    AuthController(AuthService authService, AuthenticationManager authenticationManager, JwtUtility jwtUtility) {
         this.authService = authService;
         this.authenticationManager = authenticationManager;
         this.jwtUtility = jwtUtility;
     }
 
     @PostMapping("/login")
-    public ResponseEntity<?> authenticateUser(@RequestBody UserForLoginDTO userForLoginDTO) {
+    ResponseEntity<?> authenticateUser(@RequestBody UserForLoginDTO userForLoginDTO) {
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(userForLoginDTO.getLogin(), userForLoginDTO.getPassword()));
 
@@ -54,18 +54,18 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<?> registerUser(@RequestBody UserForRegistrationDTO userForRegistration) {
+    ResponseEntity<?> registerUser(@RequestBody UserForRegistrationDTO userForRegistration) {
         authService.addUser(userForRegistration);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @ExceptionHandler(ResourceAlreadyExistsException.class)
-    public ResponseEntity<String> handleResourceNotFound(ResourceAlreadyExistsException e) {
+    private ResponseEntity<String> handleResourceNotFound(ResourceAlreadyExistsException e) {
         return ResponseEntity.status(HttpStatus.CONFLICT).body(e.getMessage());
     }
 
     @ExceptionHandler(ResourceNotFoundException.class)
-    public ResponseEntity<String> handleResourceNotFound(ResourceNotFoundException e){
+    private ResponseEntity<String> handleResourceNotFound(ResourceNotFoundException e){
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
     }
 }

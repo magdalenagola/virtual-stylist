@@ -32,7 +32,7 @@ public class AuthService {
     }
 
 
-    public void addUser(UserForRegistrationDTO userForRegistration) {
+    void addUser(UserForRegistrationDTO userForRegistration) {
         if (userRepository.existsByEmail(userForRegistration.getEmail())) {
             throw new ResourceAlreadyExistsException("The email is already registered");
         }
