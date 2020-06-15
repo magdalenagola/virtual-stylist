@@ -21,7 +21,7 @@ class WardrobeService {
     private final ModelMapper modelMapper;
 
     @Autowired
-    public WardrobeService(@Qualifier("wardrobeDataAccess") WardrobeDataAccess wardrobeDataAccess, ModelMapper modelMapper) {
+    WardrobeService(@Qualifier("wardrobeDataAccess") WardrobeDataAccess wardrobeDataAccess, ModelMapper modelMapper) {
         this.wardrobeDataAccess = wardrobeDataAccess;
         this.modelMapper = modelMapper;
     }

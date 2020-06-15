@@ -16,19 +16,19 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/wardrobe")
-public class WardrobeController {
+class WardrobeController {
 
     private final WardrobeService wardrobeService;
     private final AuthService authService;
 
     @Autowired
-    public WardrobeController(WardrobeService wardrobeService, AuthService authService){
+    WardrobeController(WardrobeService wardrobeService, AuthService authService){
         this.wardrobeService = wardrobeService;
         this.authService = authService;
     }
 
     @GetMapping
-    public ResponseEntity<Page<ClothForDisplayWardrobeDTO>> getAllClothes(@PageableDefault(
+    ResponseEntity<Page<ClothForDisplayWardrobeDTO>> getAllClothes(@PageableDefault(
             size = 50,
             sort = "id",
             direction = Sort.Direction.ASC
@@ -39,41 +39,41 @@ public class WardrobeController {
 
 
     @GetMapping("/{id}")
-    public ResponseEntity<ClothForDisplayDTO> getCloth(@PathVariable("id") int id){
+    ResponseEntity<ClothForDisplayDTO> getCloth(@PathVariable("id") int id){
         User user = authService.findUserByEmail();
         return ResponseEntity.ok(wardrobeService.getClothById(id, user.getId()));
     }
 
     @PutMapping
-    public ResponseEntity editCloth(@RequestBody ClothForUpdateDTO cloth){
+    ResponseEntity editCloth(@RequestBody ClothForUpdateDTO cloth){
         User user = authService.findUserByEmail();
             wardrobeService.editCloth(cloth, user);
             return ResponseEntity.noContent().build();
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity deleteCloth(@PathVariable("id") int id){
+    ResponseEntity deleteCloth(@PathVariable("id") int id){
         User user = authService.findUserByEmail();
         wardrobeService.deleteCloth(id, user.getId());
         return ResponseEntity.noContent().build();
     }
 
     @PostMapping
-    public ResponseEntity addCloth(@RequestBody ClothForCreationDTO clothForCreation){
+    ResponseEntity addCloth(@RequestBody ClothForCreationDTO clothForCreation){
         User user = authService.findUserByEmail();
         wardrobeService.addCloth(clothForCreation, user);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @GetMapping("bodyPart/{bodyPart}")
-    public ResponseEntity<List<ClothForDisplayWardrobeDTO>> getClothesByBodyPart(@PathVariable("bodyPart") String bodyPart){
+    ResponseEntity<List<ClothForDisplayWardrobeDTO>> getClothesByBodyPart(@PathVariable("bodyPart") String bodyPart){
         ClothesProperties.BodyPart enumBodyPart = ClothesProperties.BodyPart.valueOf(bodyPart.toUpperCase());
         User user = authService.findUserByEmail();
         return ResponseEntity.ok(wardrobeService.getAllClothesByBodyPart(enumBodyPart, user.getId()));
     }
 
     @ExceptionHandler(ResourceNotFoundException.class)
-    public ResponseEntity<String> handleResourceNotFound(ResourceNotFoundException e){
+    ResponseEntity<String> handleResourceNotFound(ResourceNotFoundException e){
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
     }
 }

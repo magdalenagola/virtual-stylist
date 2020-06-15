@@ -1,7 +1,7 @@
 package com.codecool.virtualstylist.wardrobe;
 
 
-public class ClothForDisplayDTO {
+class ClothForDisplayDTO {
 
     private Integer id;
 
