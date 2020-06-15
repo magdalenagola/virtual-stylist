@@ -4,11 +4,11 @@ import java.util.List;
 
 public class JwtResponse {
 
-    private String token;
-    private Integer id;
-    private String email;
-    private String name;
-    private List<String> roles;
+    private final String token;
+    private final Integer id;
+    private final String email;
+    private final String name;
+    private final List<String> roles;
 
     public JwtResponse(String token, Integer id, String email, String name, List<String> roles) {
         this.token = token;

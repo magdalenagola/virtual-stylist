@@ -1,8 +1,8 @@
 package com.codecool.virtualstylist.user;
 
 
-import com.codecool.virtualstylist.exceptions.ResourceAlreadyExistsException;
-import com.codecool.virtualstylist.exceptions.ResourceNotFoundException;
+import com.codecool.virtualstylist.exception.ResourceAlreadyExistsException;
+import com.codecool.virtualstylist.exception.ResourceNotFoundException;
 import com.codecool.virtualstylist.security.JwtUtility;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

@@ -1,4 +1,4 @@
-package com.codecool.virtualstylist.exceptions;
+package com.codecool.virtualstylist.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;

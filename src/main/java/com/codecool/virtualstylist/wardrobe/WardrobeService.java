@@ -1,7 +1,7 @@
 package com.codecool.virtualstylist.wardrobe;
 
 
-import com.codecool.virtualstylist.exceptions.ResourceNotFoundException;
+import com.codecool.virtualstylist.exception.ResourceNotFoundException;
 import com.codecool.virtualstylist.user.User;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;

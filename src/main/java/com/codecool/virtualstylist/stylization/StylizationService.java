@@ -3,11 +3,12 @@ package com.codecool.virtualstylist.stylization;
 
 import com.codecool.virtualstylist.user.User;
 import com.codecool.virtualstylist.wardrobe.Cloth;
-import com.codecool.virtualstylist.exceptions.ResourceNotFoundException;
+import com.codecool.virtualstylist.exception.ResourceNotFoundException;
 import com.codecool.virtualstylist.wardrobe.ClothForDisplayStylizationDTO;
 import com.codecool.virtualstylist.wardrobe.WardrobeDataAccess;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -25,7 +26,7 @@ public class StylizationService {
     private final WardrobeDataAccess wardrobeDataAccess;
 
     @Autowired
-    public StylizationService(StylizationDataAccess stylizationDataAccess, ModelMapper modelMapper, WardrobeDataAccess wardrobeDataAccess) {
+    public StylizationService(StylizationDataAccess stylizationDataAccess, ModelMapper modelMapper, @Qualifier("wardrobeDataAccess") WardrobeDataAccess wardrobeDataAccess) {
         this.stylizationDataAccess = stylizationDataAccess;
         this.modelMapper = modelMapper;
         this.wardrobeDataAccess = wardrobeDataAccess;

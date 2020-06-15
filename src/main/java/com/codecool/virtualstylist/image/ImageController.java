@@ -1,6 +1,6 @@
-package com.codecool.virtualstylist.staticFiles;
+package com.codecool.virtualstylist.image;
 
-import com.codecool.virtualstylist.exceptions.ResourceNotFoundException;
+import com.codecool.virtualstylist.exception.ResourceNotFoundException;
 import org.apache.commons.io.IOUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -16,7 +16,7 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/img")
-public class StaticFilesController {
+public class ImageController {
 
     @GetMapping(
             value = "/{fileName}",
@@ -47,16 +47,21 @@ public class StaticFilesController {
                 fileNameJson.put("fileName", filename);
                 return fileNameJson;
             } catch (Exception e) {
-                throw new IllegalArgumentException(); //TODO send response code
+                throw new IllegalArgumentException();
             }
         } else {
             System.out.println("File is empty");
-            throw new IllegalArgumentException(); //TODO send response code
+            throw new IllegalArgumentException();
         }
     }
 
     @ExceptionHandler(ResourceNotFoundException.class)
     public ResponseEntity<String> handleResourceNotFound(ResourceNotFoundException e){
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+    }
+
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<String> handleIllegalArgumentException(IllegalArgumentException e){
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
     }
 }
