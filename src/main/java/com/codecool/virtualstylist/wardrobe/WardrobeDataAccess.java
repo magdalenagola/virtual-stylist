@@ -18,5 +18,5 @@ public interface WardrobeDataAccess extends PagingAndSortingRepository<Cloth,Int
     Integer countAllByUserId(int userId);
     Optional<Cloth> findByIdAndUser_Id(int id, int user_id);
     boolean existsClothByIdAndUser_Id(int id, int userId);
-    Optional<List<Cloth>> findAllByBodyPartAndUserId(ClothesProperties.BodyPart bodyPart, int userId);
+    List<Cloth> findAllByBodyPartAndUserId(ClothesProperties.BodyPart bodyPart, int userId);
 }
