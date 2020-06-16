@@ -16,6 +16,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import static com.codecool.virtualstylist.wardrobe.ClothesMatcher.*;
+
 @Service
 class StylizationService {
 
@@ -76,11 +78,15 @@ class StylizationService {
     }
 
     List<ClothForDisplayStylizationDTO> getMatchingClothes(int clothId, int userId){
-        Optional<Cloth> clothTobeMatched = wardrobeDataAccess.findById(clothId);
-        List<Cloth> complementaryUserClothes = wardrobeDataAccess.findAllByBodyPartAndUserId(ClothesProperties.getMatchingBodyPart(clothTobeMatched.get().getBodyPart()), userId)
-                .orElseThrow(ResourceNotFoundException::new);
+        Cloth clothToBeMatched = wardrobeDataAccess.findById(clothId)
+                .orElseThrow(()-> new ResourceNotFoundException("Cloth not found"));
+        ClothesProperties.BodyPart matchingBodyPart = ClothesProperties.getMatchingBodyPart(clothToBeMatched.getBodyPart());
+        List<Cloth> complementaryUserClothes = wardrobeDataAccess.findAllByBodyPartAndUserId(matchingBodyPart, userId);
         return complementaryUserClothes.stream()
-                .filter(cloth -> ClothesMatcher.isPatternMatching().and(ClothesMatcher.isPatternMatching()).and(ClothesMatcher.isStyleMatching()).and(ClothesMatcher.isColorMatching()).apply(clothTobeMatched, cloth))
+                .filter(cloth -> isPatternMatching()
+                        .and(isStyleMatching())
+                        .and(isColorMatching())
+                        .apply(clothToBeMatched, cloth))
                 .map(cloth->modelMapper.map(cloth, ClothForDisplayStylizationDTO.class))
                 .collect(Collectors.toList());
     }

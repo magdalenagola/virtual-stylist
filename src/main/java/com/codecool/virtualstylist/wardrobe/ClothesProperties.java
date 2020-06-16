@@ -57,7 +57,8 @@ public class ClothesProperties {
         else if (bodyPart.equals(BodyPart.LEGS)) return BodyPart.CHEST;
         else throw new ResourceNotFoundException("No matching body part for the cloth");
     }
-    public static Map<Color, List<Color>> generateMatchingColors() {
+
+    public static Map<Color, List<Color>> createMatchingColorsMap() {
         Map<Color, List<Color>> matchingColors = new HashMap<>();
         matchingColors.put(WHITE, Arrays.asList(Color.values()));
         matchingColors.put(GREY, Arrays.asList(Color.values()));

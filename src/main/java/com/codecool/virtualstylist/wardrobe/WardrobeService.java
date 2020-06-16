@@ -72,8 +72,7 @@ class WardrobeService {
     }
 
     List<ClothForDisplayWardrobeDTO> getAllClothesByBodyPart(ClothesProperties.BodyPart bodyPart, int userId){
-        List<Cloth> clothes = wardrobeDataAccess.findAllByBodyPartAndUserId(bodyPart, userId)
-                .orElseThrow(()-> new ResourceNotFoundException("Clothes not found for given body part and user"));
+        List<Cloth> clothes = wardrobeDataAccess.findAllByBodyPartAndUserId(bodyPart, userId);
         return clothes.stream()
                 .map(cloth-> modelMapper.map(cloth, ClothForDisplayWardrobeDTO.class))
                 .collect(Collectors.toList());
