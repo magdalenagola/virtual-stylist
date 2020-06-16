@@ -6,6 +6,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 import static com.codecool.virtualstylist.wardrobe.ClothesProperties.Style.*;
+import static com.codecool.virtualstylist.wardrobe.ClothesProperties.Color.*;
 
 public class ClothesProperties {
 
@@ -51,10 +52,27 @@ public class ClothesProperties {
         return matchingStyles;
     }
 
-    public static BodyPart getMatchingBodyPart(BodyPart bodyPart){
-        if(bodyPart.equals(BodyPart.CHEST)) return BodyPart.LEGS;
-        else if(bodyPart.equals(BodyPart.LEGS)) return BodyPart.CHEST;
+    public static BodyPart getMatchingBodyPart(BodyPart bodyPart) {
+        if (bodyPart.equals(BodyPart.CHEST)) return BodyPart.LEGS;
+        else if (bodyPart.equals(BodyPart.LEGS)) return BodyPart.CHEST;
         else throw new ResourceNotFoundException("No matching body part for the cloth");
+    }
+    public static Map<Color, List<Color>> generateMatchingColors() {
+        Map<Color, List<Color>> matchingColors = new HashMap<>();
+        matchingColors.put(WHITE, Arrays.asList(Color.values()));
+        matchingColors.put(GREY, Arrays.asList(Color.values()));
+        matchingColors.put(BLACK, Arrays.asList(WHITE, BLACK, BLUE, YELLOW, BROWN, GREY, GREEN, ORANGE, PINK, GOLD, SILVER, PURPLE));
+        matchingColors.put(PURPLE, Arrays.asList(PURPLE, WHITE, BLACK, BLUE, BROWN, GREY, PINK, SILVER));
+        matchingColors.put(GOLD, Arrays.asList(GOLD, WHITE, BLACK, RED, YELLOW, BROWN, GREY, GREEN, ORANGE));
+        matchingColors.put(SILVER, Arrays.asList(SILVER, WHITE, BLACK, BLUE, GREY, PINK, PURPLE));
+        matchingColors.put(PINK, Arrays.asList(PINK, WHITE, BLACK, BLUE, BROWN, GREY, SILVER, PURPLE));
+        matchingColors.put(ORANGE, Arrays.asList(ORANGE, WHITE, BLACK, BLUE, BROWN, GREY, SILVER, PURPLE));
+        matchingColors.put(GREEN, Arrays.asList(GREEN, WHITE, BLACK, YELLOW, BROWN, GREY,  GOLD));
+        matchingColors.put(BROWN, Arrays.asList(BROWN, YELLOW, GREY, GREEN, ORANGE, GOLD, PURPLE, WHITE, BLACK, PINK));
+        matchingColors.put(YELLOW, Arrays.asList(YELLOW, WHITE, BLACK, RED, BROWN, GREY, GREEN, ORANGE, GOLD, PURPLE));
+        matchingColors.put(BLUE, Arrays.asList(BLUE, WHITE, RED, BLACK, GREY, PINK, SILVER, PURPLE));
+        matchingColors.put(RED, Arrays.asList(RED, WHITE,  YELLOW, BROWN, GREY,BLUE, GOLD, SILVER));
+        return matchingColors;
     }
 
     enum Color {

@@ -8,6 +8,7 @@ import java.util.function.BiFunction;
 public interface ClothesMatcher extends BiFunction<Cloth, Cloth, Boolean> {
 
     Map<ClothesProperties.Style, List<ClothesProperties.Style>> matchingStyles = ClothesProperties.createMatchingStylesMap();
+    Map<ClothesProperties.Color, List<ClothesProperties.Color>> matchingColors = ClothesProperties.generateMatchingColors();
 
     static ClothesMatcher isPatternMatching(){
         return (clothToBeMatched, cloth)->{
@@ -17,11 +18,17 @@ public interface ClothesMatcher extends BiFunction<Cloth, Cloth, Boolean> {
         };
     }
 
-    static ClothesMatcher isStyleMatching(){
-        return (clothToBeMatched, cloth)->{
-            if(matchingStyles.get(clothToBeMatched.getStyle()).contains(cloth.getStyle())) return true;
+    static ClothesMatcher isStyleMatching() {
+        return (clothToBeMatched, cloth) -> {
+            if (matchingStyles.get(clothToBeMatched.getStyle()).contains(cloth.getStyle())) return true;
             return false;
         };
+    }
+
+    static ClothesMatcher isColorMatching(){
+        return (clothToBeMatched, cloth)-> matchingColors.get(clothToBeMatched.getColor())
+                .stream()
+               .anyMatch(color -> color.equals(cloth.getColor()));
     }
 
     default ClothesMatcher and (ClothesMatcher other){
