@@ -59,6 +59,12 @@ class StylizationController {
         return ResponseEntity.noContent().build();
     }
 
+    @GetMapping("/design/{clothId}")
+    ResponseEntity<List<ClothForDisplayStylizationDTO>> getAllMatchingClothes(@PathVariable("clothId") int clothId) {
+        User user = authService.findUserByEmail();
+        return ResponseEntity.ok(stylizationService.getMatchingClothes(clothId, user.getId()));
+    }
+
     @ExceptionHandler(ResourceNotFoundException.class)
     private ResponseEntity<String> handleResourceNotFound(ResourceNotFoundException e){
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());

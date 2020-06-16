@@ -76,4 +76,11 @@ class StylizationService {
         }
         stylizationDataAccess.deleteById(id);
     }
+
+    List<ClothForDisplayStylizationDTO> getMatchingClothes(int clothId, int userId){
+        //TODO
+        return null;
+    }
+
+
 }
