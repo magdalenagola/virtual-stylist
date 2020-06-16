@@ -2,10 +2,8 @@ package com.codecool.virtualstylist.stylization;
 
 
 import com.codecool.virtualstylist.user.User;
-import com.codecool.virtualstylist.wardrobe.Cloth;
+import com.codecool.virtualstylist.wardrobe.*;
 import com.codecool.virtualstylist.exception.ResourceNotFoundException;
-import com.codecool.virtualstylist.wardrobe.ClothForDisplayStylizationDTO;
-import com.codecool.virtualstylist.wardrobe.WardrobeDataAccess;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -17,6 +15,8 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+
+import static com.codecool.virtualstylist.wardrobe.ClothesMatcher.*;
 
 @Service
 class StylizationService {
@@ -76,4 +76,19 @@ class StylizationService {
         }
         stylizationDataAccess.deleteById(id);
     }
+
+    List<ClothForDisplayStylizationDTO> getMatchingClothes(int clothId, int userId){
+        Cloth clothToBeMatched = wardrobeDataAccess.findById(clothId)
+                .orElseThrow(()-> new ResourceNotFoundException("Cloth not found"));
+        ClothesProperties.BodyPart matchingBodyPart = ClothesProperties.getMatchingBodyPart(clothToBeMatched.getBodyPart());
+        List<Cloth> complementaryUserClothes = wardrobeDataAccess.findAllByBodyPartAndUserId(matchingBodyPart, userId);
+        return complementaryUserClothes.stream()
+                .filter(cloth -> isPatternMatching()
+                        .and(isStyleMatching())
+                        .and(isColorMatching())
+                        .apply(clothToBeMatched, cloth))
+                .map(cloth->modelMapper.map(cloth, ClothForDisplayStylizationDTO.class))
+                .collect(Collectors.toList());
+    }
+
 }
