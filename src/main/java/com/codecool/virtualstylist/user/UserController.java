@@ -24,9 +24,10 @@ class UserController {
         this.authService = authService;
     }
 
-    @GetMapping("/{id}")
-    ResponseEntity getUserData(@PathVariable("id") int userId) {
-        return ResponseEntity.ok(userService.getUserById(userId));
+    @GetMapping("/details")
+    ResponseEntity<UserForDisplayDTO> getUserDetails() {
+        User user = authService.findUserByEmail();
+        return ResponseEntity.ok(userService.getUserForDisplay(user));
     }
 
     @GetMapping
