@@ -34,7 +34,7 @@ class UserService {
         user.setName(userForUpdateDTO.getName());
         user.setGender(userForUpdateDTO.getGender());
         user.setPassword(passwordEncoder.encode(userForUpdateDTO.getPassword()));
-        userDataAccess.saveAndFlush(user);
+        userDataAccess.save(user);
     }
 
     void deleteUser(int id) {
@@ -42,9 +42,9 @@ class UserService {
         userDataAccess.delete(userToDelete.orElseThrow(() -> new ResourceNotFoundException("User not found!")));
     }
 
-    UserForDisplayDTO getUserById(int userId) throws ResourceNotFoundException {
-        Optional<User> userPossibly = userDataAccess.findUserById(userId);
-        return modelMapper.map(userPossibly
+    UserForDisplayDTO getUserForDisplay(User user) throws ResourceNotFoundException {
+        Optional<User> optionalUser = Optional.of(user);
+        return modelMapper.map(optionalUser
                         .orElseThrow(() -> new ResourceNotFoundException("User not found!")),
                 UserForDisplayDTO.class);
     }
