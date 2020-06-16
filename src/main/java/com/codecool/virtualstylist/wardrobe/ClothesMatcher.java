@@ -1,6 +1,4 @@
-package com.codecool.virtualstylist.stylization;
-
-import com.codecool.virtualstylist.wardrobe.Cloth;
+package com.codecool.virtualstylist.wardrobe;
 
 import java.util.function.BiFunction;
 

@@ -5,6 +5,8 @@ import com.codecool.virtualstylist.exception.ResourceNotFoundException;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import static com.codecool.virtualstylist.wardrobe.ClothesProperties.Style.*;
+
 class ClothesProperties {
 
     static BodyPart findClothesBodyPart(ClothType clothType){
@@ -33,6 +35,20 @@ class ClothesProperties {
         options.put(ClothesProperties.Style.class.getSimpleName(), Arrays.stream(ClothesProperties.Style.values()).map(Enum::toString).collect(Collectors.toList()));
         options.put(ClothesProperties.Size.class.getSimpleName(), Arrays.stream(ClothesProperties.Size.values()).map(Enum::toString).collect(Collectors.toList()));
         return options;
+    }
+
+    static Map<Style, List<Style>> createMatchingStylesMap(){
+        Map<Style, List<Style>> matchingStyles = new HashMap<>();
+        matchingStyles.put(CASUAL, Arrays.asList(CASUAL, CLASSIC, SPORTY, ROMANTIC, BOHO, FOLK, ALTERNATIVE, RETRO));
+        matchingStyles.put(CLASSIC,(Arrays.asList(CLASSIC, BUSINESS, CASUAL)));
+        matchingStyles.put(BUSINESS,(Arrays.asList(BUSINESS, CLASSIC)));
+        matchingStyles.put(RETRO,(Arrays.asList(RETRO, FOLK, CASUAL)));
+        matchingStyles.put(SPORTY,(Arrays.asList(SPORTY, CASUAL)));
+        matchingStyles.put(ROMANTIC,(Arrays.asList(ROMANTIC, CLASSIC, CASUAL, BOHO)));
+        matchingStyles.put(BOHO,(Arrays.asList(ROMANTIC, CASUAL, BOHO)));
+        matchingStyles.put(FOLK,(Arrays.asList(FOLK, CLASSIC, CASUAL)));
+        matchingStyles.put(ALTERNATIVE,(Arrays.asList(ALTERNATIVE, CLASSIC)));
+        return matchingStyles;
     }
 
     enum Color {
