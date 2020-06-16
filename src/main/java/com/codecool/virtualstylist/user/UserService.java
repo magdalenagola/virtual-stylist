@@ -34,7 +34,7 @@ class UserService {
         user.setName(userForUpdateDTO.getName());
         user.setGender(userForUpdateDTO.getGender());
         user.setPassword(passwordEncoder.encode(userForUpdateDTO.getPassword()));
-        userDataAccess.saveAndFlush(user);
+        userDataAccess.save(user);
     }
 
     void deleteUser(int id) {
