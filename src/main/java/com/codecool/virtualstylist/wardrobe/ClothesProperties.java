@@ -7,7 +7,7 @@ import java.util.stream.Collectors;
 
 import static com.codecool.virtualstylist.wardrobe.ClothesProperties.Style.*;
 
-class ClothesProperties {
+public class ClothesProperties {
 
     static BodyPart findClothesBodyPart(ClothType clothType){
         Map<BodyPart, ClothType[]> bodyPartsForClothes = createBodyPartsForClothesMap();
@@ -51,6 +51,12 @@ class ClothesProperties {
         return matchingStyles;
     }
 
+    public static BodyPart getMatchingBodyPart(BodyPart bodyPart){
+        if(bodyPart.equals(BodyPart.CHEST)) return BodyPart.LEGS;
+        else if(bodyPart.equals(BodyPart.LEGS)) return BodyPart.CHEST;
+        else throw new ResourceNotFoundException("No matching body part for the cloth");
+    }
+
     enum Color {
         WHITE,
         BLACK,
@@ -75,7 +81,7 @@ class ClothesProperties {
         CASUAL, CLASSIC, BUSINESS, RETRO, SPORTY, ROMANTIC, BOHO, FOLK, ALTERNATIVE
     }
 
-    enum BodyPart {
+    public enum BodyPart {
         CHEST,
         LEGS,
         BODY
