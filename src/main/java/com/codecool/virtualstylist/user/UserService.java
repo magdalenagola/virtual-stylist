@@ -43,10 +43,7 @@ class UserService {
     }
 
     UserForDisplayDTO getUserForDisplay(User user) throws ResourceNotFoundException {
-        Optional<User> optionalUser = Optional.of(user);
-        return modelMapper.map(optionalUser
-                        .orElseThrow(() -> new ResourceNotFoundException("User not found!")),
-                UserForDisplayDTO.class);
+        return modelMapper.map(user,UserForDisplayDTO.class);
     }
 
     Page<UserForDisplayAllDTO> getAllUsers(Pageable pageable) throws ResourceNotFoundException {
