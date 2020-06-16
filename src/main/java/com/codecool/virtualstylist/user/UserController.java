@@ -25,7 +25,7 @@ class UserController {
     }
 
     @GetMapping("/details")
-    ResponseEntity<UserForDisplayDTO> getUserData() {
+    ResponseEntity<UserForDisplayDTO> getUserDetails() {
         User user = authService.findUserByEmail();
         return ResponseEntity.ok(userService.getUserForDisplay(user));
     }
