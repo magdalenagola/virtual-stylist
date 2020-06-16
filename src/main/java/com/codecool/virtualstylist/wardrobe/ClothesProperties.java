@@ -5,6 +5,8 @@ import com.codecool.virtualstylist.exception.ResourceNotFoundException;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import static com.codecool.virtualstylist.wardrobe.ClothesProperties.Color.*;
+
 class ClothesProperties {
 
     static BodyPart findClothesBodyPart(ClothType clothType){
@@ -29,10 +31,28 @@ class ClothesProperties {
         Map<String,List<String>>options = new LinkedHashMap<>();
         options.put(ClothesProperties.ClothType.class.getSimpleName(), Arrays.stream(ClothesProperties.ClothType.values()).map(Enum::toString).collect(Collectors.toList()));
         options.put(ClothesProperties.Style.class.getSimpleName(), Arrays.stream(ClothesProperties.Style.values()).map(Enum::toString).collect(Collectors.toList()));
-        options.put(ClothesProperties.Color.class.getSimpleName(), Arrays.stream(ClothesProperties.Color.values()).map(Enum::toString).collect(Collectors.toList()));
+        options.put(ClothesProperties.Color.class.getSimpleName(), Arrays.stream(values()).map(Enum::toString).collect(Collectors.toList()));
         options.put(ClothesProperties.Style.class.getSimpleName(), Arrays.stream(ClothesProperties.Style.values()).map(Enum::toString).collect(Collectors.toList()));
         options.put(ClothesProperties.Size.class.getSimpleName(), Arrays.stream(ClothesProperties.Size.values()).map(Enum::toString).collect(Collectors.toList()));
         return options;
+    }
+
+    public static Map<Color, List<Color>> generateMatchingColors() {
+        Map<Color, List<Color>> matchingColors = new HashMap<>();
+        matchingColors.put(WHITE, Arrays.asList(Color.values()));
+        matchingColors.put(GREY, Arrays.asList(Color.values()));
+        matchingColors.put(BLACK, Arrays.asList(WHITE, BLACK, BLUE, YELLOW, BROWN, GREY, GREEN, ORANGE, PINK, GOLD, SILVER, PURPLE));
+        matchingColors.put(PURPLE, Arrays.asList(PURPLE, WHITE, BLACK, BLUE, BROWN, GREY, PINK, SILVER));
+        matchingColors.put(GOLD, Arrays.asList(GOLD, WHITE, BLACK, RED, YELLOW, BROWN, GREY, GREEN, ORANGE));
+        matchingColors.put(SILVER, Arrays.asList(SILVER, WHITE, BLACK, BLUE, GREY, PINK, PURPLE));
+        matchingColors.put(PINK, Arrays.asList(PINK, WHITE, BLACK, BLUE, BROWN, GREY, SILVER, PURPLE));
+        matchingColors.put(ORANGE, Arrays.asList(ORANGE, WHITE, BLACK, BLUE, BROWN, GREY, SILVER, PURPLE));
+        matchingColors.put(GREEN, Arrays.asList(GREEN, WHITE, BLACK, YELLOW, BROWN, GREY,  GOLD));
+        matchingColors.put(BROWN, Arrays.asList(BROWN, YELLOW, GREY, GREEN, ORANGE, GOLD, PURPLE, WHITE, BLACK, PINK));
+        matchingColors.put(YELLOW, Arrays.asList(YELLOW, WHITE, BLACK, RED, BROWN, GREY, GREEN, ORANGE, GOLD, PURPLE));
+        matchingColors.put(BLUE, Arrays.asList(BLUE, WHITE, RED, BLACK, GREY, PINK, SILVER, PURPLE));
+        matchingColors.put(RED, Arrays.asList(RED, WHITE,  YELLOW, BROWN, GREY,BLUE, GOLD, SILVER));
+        return matchingColors;
     }
 
     enum Color {
