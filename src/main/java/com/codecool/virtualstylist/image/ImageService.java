@@ -2,25 +2,41 @@ package com.codecool.virtualstylist.image;
 
 import com.amazonaws.AmazonServiceException;
 import com.amazonaws.services.s3.AmazonS3;
-import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.model.ObjectMetadata;
+import com.amazonaws.services.s3.model.S3Object;
+import com.amazonaws.services.s3.model.S3ObjectInputStream;
+import com.codecool.virtualstylist.exception.ResourceNotFoundException;
 import com.codecool.virtualstylist.user.User;
+import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-import static org.apache.http.entity.ContentType.*;
 
-import java.io.*;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.*;
+
+import static org.apache.http.entity.ContentType.IMAGE_JPEG;
+import static org.apache.http.entity.ContentType.IMAGE_PNG;
 
 @Service
 public class ImageService {
 
     private final AmazonS3 s3;
     private final static String  BUCKET_NAME = "virtual.stylist.images";
+
     @Autowired
     public ImageService(AmazonS3 s3) {
         this.s3 = s3;
+    }
+
+    public byte[] downloadFile(User user, String fileName) throws IOException {
+        String path = String.format("%s/%d", BUCKET_NAME, user.getId());
+        S3Object object = s3.getObject(path, fileName);
+        Optional<S3ObjectInputStream> objectContent = Optional.of(object.getObjectContent());
+        return IOUtils.toByteArray(objectContent
+                .orElseThrow(()-> new ResourceNotFoundException(fileName + " not found!")));
     }
 
     public Map<String, String> uploadFile(User user, MultipartFile multipartFile){
@@ -39,7 +55,7 @@ public class ImageService {
                 InputStream inputStream = new ByteArrayInputStream(bytes);
                 s3.putObject(path, filename,inputStream,metadata);
                 Map<String, String> filePropertiesJson = new HashMap<>();
-                filePropertiesJson.put("fileName",path +"/"+ filename);
+                filePropertiesJson.put("fileName", filename);
                 return filePropertiesJson;
             } catch (IOException |AmazonServiceException e) {
                 throw new IllegalArgumentException();
