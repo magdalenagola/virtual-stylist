@@ -16,6 +16,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/wardrobe")
+@CrossOrigin("*")
 class WardrobeController {
 
     private final WardrobeService wardrobeService;

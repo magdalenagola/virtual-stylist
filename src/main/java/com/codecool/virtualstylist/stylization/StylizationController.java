@@ -18,6 +18,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/stylization")
+@CrossOrigin("*")
 class StylizationController {
 
     private final StylizationService stylizationService;
