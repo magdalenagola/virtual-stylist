@@ -16,7 +16,6 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/img")
-@CrossOrigin("*")
 class ImageController {
 
     @GetMapping(
