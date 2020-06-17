@@ -2,6 +2,7 @@ package com.codecool.virtualstylist.image;
 
 import com.amazonaws.AmazonServiceException;
 import com.amazonaws.services.s3.AmazonS3;
+import com.amazonaws.services.s3.model.AmazonS3Exception;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.S3Object;
 import com.amazonaws.services.s3.model.S3ObjectInputStream;
@@ -33,10 +34,12 @@ public class ImageService {
 
     public byte[] downloadFile(User user, String fileName) throws IOException {
         String path = String.format("%s/%d", BUCKET_NAME, user.getId());
-        S3Object object = s3.getObject(path, fileName);
-        Optional<S3ObjectInputStream> objectContent = Optional.of(object.getObjectContent());
-        return IOUtils.toByteArray(objectContent
-                .orElseThrow(()-> new ResourceNotFoundException(fileName + " not found!")));
+        try {
+            S3Object object = s3.getObject(path, fileName);
+            return IOUtils.toByteArray(object.getObjectContent());
+        }catch(AmazonS3Exception e){
+            throw new ResourceNotFoundException(fileName + " not found!");
+        }
     }
 
     public Map<String, String> uploadFile(User user, MultipartFile multipartFile){
