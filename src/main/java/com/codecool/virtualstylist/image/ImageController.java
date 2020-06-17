@@ -32,13 +32,9 @@ class ImageController {
             value = "/{fileName}",
             produces = MediaType.IMAGE_JPEG_VALUE
     )
-    @ResponseBody byte[] getImageWithMediaType(@PathVariable("fileName") String fileName)
-            throws IOException {
-        InputStream in = Optional.ofNullable(getClass()
-                .getClassLoader()
-                .getResourceAsStream(fileName))
-                .orElseThrow(()-> new ResourceNotFoundException(fileName + " not found!"));
-        return IOUtils.toByteArray(in);
+    @ResponseBody byte[] getImageWithMediaType(@PathVariable("fileName") String fileName) throws IOException {
+        User user = authService.findUserByEmail();
+        return imageService.downloadFile(user,fileName);
     }
 
     @PostMapping
