@@ -1,6 +1,6 @@
 package com.codecool.virtualstylist.stylization;
 
-import com.codecool.virtualstylist.wardrobe.ClothForDisplayWardrobeDTO;
+import com.codecool.virtualstylist.wardrobe.ClothForStylizationCreationDTO;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.List;
@@ -8,16 +8,16 @@ import java.util.List;
 class StylizationForCreationDTO {
 
     @JsonProperty("clothes")
-    private List<ClothForDisplayWardrobeDTO> clothes;
+    private List<ClothForStylizationCreationDTO> clothes;
 
     @JsonProperty("tag")
     private String tag;
 
-    public List<ClothForDisplayWardrobeDTO> getClothes() {
+    public List<ClothForStylizationCreationDTO> getClothes() {
         return clothes;
     }
 
-    public void setClothes(List<ClothForDisplayWardrobeDTO> clothes) {
+    public void setClothes(List<ClothForStylizationCreationDTO> clothes) {
         this.clothes = clothes;
     }
 

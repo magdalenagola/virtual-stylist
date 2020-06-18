@@ -34,7 +34,7 @@ class StylizationService {
 
     void addStylization(User user, StylizationForCreationDTO stylizationForCreation) {
         List<Cloth> clothes = stylizationForCreation.getClothes().stream()
-                .map(clothForDisplay -> modelMapper.map(clothForDisplay, Cloth.class))
+                .map(clothForStylizationCreation -> modelMapper.map(clothForStylizationCreation, Cloth.class))
                 .collect(Collectors.toList());
         Stylization stylization = new Stylization(clothes, stylizationForCreation.getTag(), user);
         stylizationDataAccess.save(stylization);
