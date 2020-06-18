@@ -33,7 +33,8 @@ class UserService {
     void editUser(UserForUpdateDTO userForUpdateDTO, User user) {
         user.setName(userForUpdateDTO.getName());
         user.setGender(userForUpdateDTO.getGender());
-        user.setPassword(passwordEncoder.encode(userForUpdateDTO.getPassword()));
+        Optional<String> newPasswordPossibly = userForUpdateDTO.getPassword();
+        if(newPasswordPossibly.isPresent()) user.setPassword(passwordEncoder.encode(newPasswordPossibly.get()));
         userDataAccess.save(user);
     }
 

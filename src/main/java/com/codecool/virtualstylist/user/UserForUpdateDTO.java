@@ -1,5 +1,7 @@
 package com.codecool.virtualstylist.user;
 
+import java.util.Optional;
+
 class UserForUpdateDTO {
     private String name;
     private Gender gender;
@@ -21,8 +23,8 @@ class UserForUpdateDTO {
         this.gender = gender;
     }
 
-    public String getPassword() {
-        return password;
+    public Optional<String> getPassword() {
+        return Optional.ofNullable(password).filter(s -> !s.isEmpty());
     }
 
     public void setPassword(String password) {
