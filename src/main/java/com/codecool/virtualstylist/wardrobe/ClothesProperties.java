@@ -21,7 +21,7 @@ public class ClothesProperties {
     }
 
     private static Map<BodyPart, ClothType[]> createBodyPartsForClothesMap() {
-        Map<BodyPart, ClothType[]> bodyPartsForClothes = new HashMap<BodyPart, ClothType[]>();
+        Map<BodyPart, ClothType[]> bodyPartsForClothes = new HashMap<>();
         bodyPartsForClothes.put(BodyPart.CHEST, new ClothType[]{ClothType.BLOUSE, ClothType.TOP, ClothType.TSHIRT});
         bodyPartsForClothes.put(BodyPart.LEGS, new ClothType[]{ClothType.TROUSERS, ClothType.JEANS});
         bodyPartsForClothes.put(BodyPart.BODY, new ClothType[]{ClothType.DRESS});
