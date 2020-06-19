@@ -24,7 +24,7 @@ public class JwtUtility {
 
     private static final Logger logger = LoggerFactory.getLogger(JwtUtility.class);
     public static final String AUTHORIZATION_HEADER = "Authorization";
-    public static final String TOKEN_SEPERATOR = " ";
+    public static final String TOKEN_SEPARATOR = " ";
 
     @Value("${virtualstylist.app.jwtSecret}")
     private String jwtSecret;
@@ -53,15 +53,15 @@ public class JwtUtility {
             Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(authToken);
             return true;
         } catch (SignatureException e) {
-            logger.error("Invalid JWT signature: {}", e.getMessage());
+            logger.info("Invalid JWT signature: {}", e.getMessage());
         } catch (MalformedJwtException e) {
-            logger.error("Invalid JWT token: {}", e.getMessage());
+            logger.info("Invalid JWT token: {}", e.getMessage());
         } catch (ExpiredJwtException e) {
-            logger.error("JWT token is expired: {}", e.getMessage());
+            logger.info("JWT token is expired: {}", e.getMessage());
         } catch (UnsupportedJwtException e) {
-            logger.error("JWT token is unsupported: {}", e.getMessage());
+            logger.info("JWT token is unsupported: {}", e.getMessage());
         } catch (IllegalArgumentException e) {
-            logger.error("JWT claims string is empty: {}", e.getMessage());
+            logger.info("JWT claims string is empty: {}", e.getMessage());
         }
 
         return false;
@@ -71,7 +71,7 @@ public class JwtUtility {
         RequestAttributes requestAttributes = RequestContextHolder.getRequestAttributes();
         if (requestAttributes instanceof ServletRequestAttributes) {
             HttpServletRequest request = ((ServletRequestAttributes)requestAttributes).getRequest();
-            return Optional.of(Arrays.asList(request.getHeader(AUTHORIZATION_HEADER).split(TOKEN_SEPERATOR)).get(1));
+            return Optional.of(Arrays.asList(request.getHeader(AUTHORIZATION_HEADER).split(TOKEN_SEPARATOR)).get(1));
         }
         return Optional.empty();
     }
