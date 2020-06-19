@@ -5,7 +5,6 @@ import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.AmazonS3Exception;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.S3Object;
-import com.amazonaws.services.s3.model.S3ObjectInputStream;
 import com.codecool.virtualstylist.exception.ResourceNotFoundException;
 import com.codecool.virtualstylist.user.User;
 import org.apache.commons.io.IOUtils;
@@ -43,9 +42,8 @@ public class ImageService {
     }
 
     public Map<String, String> uploadFile(User user, MultipartFile multipartFile){
-            isFileEmpty(multipartFile);
-            isImage(multipartFile);
-            Optional<Map<String, String>> metaDataOptional = Optional.of(extractMetadata(multipartFile));
+        validateFile(multipartFile);
+        Optional<Map<String, String>> metaDataOptional = Optional.of(extractMetadata(multipartFile));
             String path = String.format("%s/%d", BUCKET_NAME, user.getId());
             String filename = UUID.randomUUID().toString() + ".jpg";
             ObjectMetadata metadata = new ObjectMetadata();
@@ -65,7 +63,12 @@ public class ImageService {
             }
     }
 
-    private void isImage(MultipartFile file) {
+    private void validateFile(MultipartFile multipartFile) {
+        validateFileContent(multipartFile);
+        validateFileType(multipartFile);
+    }
+
+    private void validateFileType(MultipartFile file) {
         if (!Arrays.asList(
                 IMAGE_JPEG.getMimeType(),
                 IMAGE_PNG.getMimeType()).contains(file.getContentType())) {
@@ -73,7 +76,7 @@ public class ImageService {
         }
     }
 
-    private void isFileEmpty(MultipartFile file) {
+    private void validateFileContent(MultipartFile file) {
         if (file.isEmpty()) {
             throw new IllegalStateException("Cannot upload empty file [ " + file.getSize() + "]");
         }
