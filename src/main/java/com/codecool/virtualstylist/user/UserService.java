@@ -34,7 +34,7 @@ class UserService {
         user.setName(userForUpdateDTO.getName());
         user.setGender(userForUpdateDTO.getGender());
         Optional<String> newPasswordPossibly = userForUpdateDTO.getPassword();
-        if(newPasswordPossibly.isPresent()) user.setPassword(passwordEncoder.encode(newPasswordPossibly.get()));
+        newPasswordPossibly.ifPresent(newPassword -> user.setPassword(passwordEncoder.encode(newPassword)));
         userDataAccess.save(user);
     }
 
