@@ -3,7 +3,6 @@ package com.codecool.virtualstylist.image;
 import com.codecool.virtualstylist.exception.ResourceNotFoundException;
 import com.codecool.virtualstylist.user.AuthService;
 import com.codecool.virtualstylist.user.User;
-import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -13,7 +12,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.*;
 import java.util.Map;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/img")
