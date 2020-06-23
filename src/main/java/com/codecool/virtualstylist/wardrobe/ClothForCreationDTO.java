@@ -2,6 +2,8 @@ package com.codecool.virtualstylist.wardrobe;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.util.Objects;
+
 class ClothForCreationDTO {
 
     @JsonProperty("imageName")
@@ -113,5 +115,22 @@ class ClothForCreationDTO {
 
     public void setShopLink(String shopLink) {
         this.shopLink = shopLink;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ClothForCreationDTO that = (ClothForCreationDTO) o;
+        return hasPattern == that.hasPattern &&
+                imageName.equals(that.imageName) &&
+                clothType.equals(that.clothType) &&
+                color.equals(that.color) &&
+                style.equals(that.style);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(imageName, clothType, color, style, hasPattern);
     }
 }
