@@ -50,7 +50,8 @@ public class Cloth {
     @ManyToOne
     private User user;
 
-    @ManyToMany(mappedBy = "clothes")
+    @ManyToMany(mappedBy = "clothes",
+            cascade = CascadeType.ALL)
     private List<Stylization> stylizations;
 
     public Cloth() {
