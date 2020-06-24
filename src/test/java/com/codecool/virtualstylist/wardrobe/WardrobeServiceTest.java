@@ -116,6 +116,17 @@ class WardrobeServiceTest {
         });
     }
 
+    @Test
+    void shouldThrowResourceNotFoundExceptionWhenTryingToGetNotExistingCloth(){
+        //arrange
+        int notExistingClothId = 1;
+        //act
+        //assert
+        assertThrows(ResourceNotFoundException.class, () -> {
+            wardrobeService.getClothById(notExistingClothId, user.getId());
+        });
+    }
+
     private Cloth getCloth() {
         Cloth cloth = new Cloth();
         cloth.setId(0);
