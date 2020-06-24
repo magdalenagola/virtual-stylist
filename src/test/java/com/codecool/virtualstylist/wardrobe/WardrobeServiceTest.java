@@ -9,6 +9,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import static com.codecool.virtualstylist.wardrobe.ClothesProperties.*;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
@@ -52,10 +53,11 @@ class WardrobeServiceTest {
         Cloth clothToBeEdited = getCloth();
         wardrobeDataAccess.save(clothToBeEdited);
         ClothForUpdateDTO clothForUpdateDTO = getClothForUpdateDTO();
+        clothForUpdateDTO.setClothType("TSHIRT");
         //act
         wardrobeService.editCloth(clothForUpdateDTO, user);
         //assert
-        assertEquals(wardrobeDataAccess.findAll().get(1).getBodyPart(), ClothesProperties.BodyPart.CHEST);
+        assertEquals(wardrobeDataAccess.findAll().get(1).getBodyPart(), BodyPart.CHEST);
     }
 
     @Test
@@ -63,9 +65,8 @@ class WardrobeServiceTest {
         //arrange
         Cloth clothToBeEdited = getCloth();
         wardrobeDataAccess.save(clothToBeEdited);
-        ClothForUpdateDTO clothForUpdateDTO = getClothForUpdateDTO();
         //act
-        wardrobeService.editCloth(clothForUpdateDTO, user);
+        wardrobeService.editCloth(getClothForUpdateDTO(), user);
         //assert
         assertEquals(wardrobeDataAccess.findAll().get(1).getImageName(), clothToBeEdited.getImageName());
     }
@@ -73,40 +74,34 @@ class WardrobeServiceTest {
     @Test
     void shouldDeleteCloth(){
         //arrange
-        Cloth clothToBeDeleted = getCloth();
-        wardrobeDataAccess.save(clothToBeDeleted);
+        wardrobeDataAccess.save(getCloth());
         //act
-        wardrobeService.deleteCloth(clothToBeDeleted.getId(), user.getId());
+        wardrobeService.deleteCloth(getCloth().getId(), user.getId());
         //assert
         assertTrue(wardrobeDataAccess.findAll().isEmpty());
 
     }
 
     private Cloth getCloth() {
-        Cloth cloth = modelMapper.map(getClothForCreationDTO(), Cloth.class);
+        Cloth cloth = new Cloth();
         cloth.setId(0);
         cloth.setUser(user);
+        cloth.setImageName("test");
+        cloth.setHasPattern(true);
+        cloth.setClothType(ClothType.JEANS);
+        cloth.setColor(Color.RED);
+        cloth.setStyle(Style.BOHO);
         return cloth;
     }
 
     private ClothForUpdateDTO getClothForUpdateDTO() {
-        ClothForUpdateDTO clothForUpdateDTO = new ClothForUpdateDTO();
-        clothForUpdateDTO.setId(0);
-        clothForUpdateDTO.setHasPattern(true);
-        clothForUpdateDTO.setClothType("TSHIRT");
-        clothForUpdateDTO.setColor("RED");
-        clothForUpdateDTO.setStyle("BOHO");
+        ClothForUpdateDTO clothForUpdateDTO = modelMapper.map(getCloth(), ClothForUpdateDTO.class);
         return clothForUpdateDTO;
     }
 
 
     private ClothForCreationDTO getClothForCreationDTO() {
-        ClothForCreationDTO clothForCreationDTO = new ClothForCreationDTO();
-        clothForCreationDTO.setImageName("test");
-        clothForCreationDTO.setHasPattern(true);
-        clothForCreationDTO.setClothType("JEANS");
-        clothForCreationDTO.setColor("RED");
-        clothForCreationDTO.setStyle("BOHO");
+        ClothForCreationDTO clothForCreationDTO = modelMapper.map(getCloth(), ClothForCreationDTO.class);
         return clothForCreationDTO;
     }
 }
