@@ -50,27 +50,12 @@ public class Cloth {
     @ManyToOne
     private User user;
 
-    @ManyToMany(mappedBy = "clothes")
+    @ManyToMany(mappedBy = "clothes",
+            cascade = CascadeType.ALL)
     private List<Stylization> stylizations;
 
     public Cloth() {
     }
-
-    public Cloth(String imageName, ClothesProperties.BodyPart bodyPart, ClothesProperties.ClothType clothType, ClothesProperties.Color color, String code, String brand, ClothesProperties.Style style, String tag, ClothesProperties.Size size, boolean hasPattern, String shopLink, User user) {
-        this.imageName = imageName;
-        this.bodyPart = bodyPart;
-        this.clothType = clothType;
-        this.color = color;
-        this.code = code;
-        this.brand = brand;
-        this.style = style;
-        this.tag = tag;
-        this.size = size;
-        this.hasPattern = hasPattern;
-        this.shopLink = shopLink;
-        this.user = user;
-    }
-
 
     public Integer getId() {
         return id;
