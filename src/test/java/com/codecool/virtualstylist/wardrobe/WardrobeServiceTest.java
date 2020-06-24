@@ -1,5 +1,6 @@
 package com.codecool.virtualstylist.wardrobe;
 
+import com.codecool.virtualstylist.exception.ResourceNotFoundException;
 import com.codecool.virtualstylist.user.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -8,10 +9,11 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 
 import static com.codecool.virtualstylist.wardrobe.ClothesProperties.*;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 
 @SpringBootTest
@@ -78,7 +80,40 @@ class WardrobeServiceTest {
         wardrobeService.deleteCloth(getCloth().getId(), user.getId());
         //assert
         assertTrue(wardrobeDataAccess.findAll().isEmpty());
+    }
 
+    @Test
+    void shouldThrowResourceNotFoundExceptionWhenTryingToDeleteNotExistingCloth(){
+        //arrange
+        int notExistingClothId = 1;
+        //act
+        //assert
+        assertThrows(ResourceNotFoundException.class, () -> {
+            wardrobeService.deleteCloth(notExistingClothId, user.getId());
+        });
+    }
+
+    @Test
+    void shouldThrowResourceNotFoundExceptionWhenTryingToDeleteClothOfAnotherUser(){
+        //arrange
+        int notMatchingUserId = 1;
+        //act
+        //assert
+        assertThrows(ResourceNotFoundException.class, () -> {
+            wardrobeService.deleteCloth(getCloth().getId(), notMatchingUserId);
+        });
+    }
+
+    @Test
+    void shouldThrowResourceNotFoundExceptionWhenThereAreNoClothesForGivenUser(){
+        //arrange
+        int notMatchingUserId = 1;
+        Pageable pageable = PageRequest.of(0, 2);
+        //act
+        //assert
+        assertThrows(ResourceNotFoundException.class, () -> {
+            wardrobeService.getAllClothesByUserId(notMatchingUserId, pageable);
+        });
     }
 
     private Cloth getCloth() {

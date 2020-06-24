@@ -1,5 +1,8 @@
 package com.codecool.virtualstylist.wardrobe;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Repository;
 
@@ -40,5 +43,13 @@ public interface FakeWardrobeDataAccess extends WardrobeDataAccess {
     @Override
     default void deleteClothByIdAndUserId(int clothId, int userId){
         clothes.removeIf(cloth -> cloth.getId() == clothId && cloth.getUser().getId() == userId);
+    };
+
+    @Override
+    default Page<Cloth> findAllByUser_Id(int userId, Pageable paging){
+        List<Cloth> userClothes = clothes.stream()
+                .filter(cloth -> cloth.getUser().getId() == userId)
+                .collect(Collectors.toList());
+        return new PageImpl<>(userClothes,paging,userClothes.size());
     };
 }
