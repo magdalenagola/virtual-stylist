@@ -12,9 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.Arrays;
-import java.util.List;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 @ExtendWith(MockitoExtension.class)
@@ -45,7 +43,6 @@ class StylizationServiceTest {
     @Test
     void shouldAddNewStylization() {
         // Arrange
-        int expectedCount = 1 ;
         StylizationForCreationDTO stylizationForCreationDTO = new StylizationForCreationDTO();
         stylizationForCreationDTO.setTag("#Test");
         stylizationForCreationDTO.setClothes(Arrays.asList(new ClothForStylizationCreationDTO(), new ClothForStylizationCreationDTO()));
