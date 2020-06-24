@@ -17,6 +17,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import java.util.Optional;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.any;
 import static org.mockito.Mockito.when;
 
@@ -24,7 +25,7 @@ import static org.mockito.Mockito.when;
 @ExtendWith(MockitoExtension.class)
 class UserServiceTest {
 
-    @Mock
+
     private final PasswordEncoder passwordEncoder;
     @Mock
     private final RoleDataAccess roleDataAccess;
@@ -92,20 +93,35 @@ class UserServiceTest {
         UserForUpdateDTO userForUpdateDTO = new UserForUpdateDTO();
         userForUpdateDTO.setGender(Gender.FEMALE);
         userForUpdateDTO.setName("ChangedName");
+        userForUpdateDTO.setPassword("ChangedPassword");
         // Act
         userService.editUser(userForUpdateDTO, testUser);
         User result = userDataAccess.findUserById(0).orElseThrow(ResourceNotFoundException::new);
         // Assert
         assertEquals("ChangedName", result.getName());
         assertEquals(Gender.FEMALE, result.getGender());
+        assertTrue(passwordEncoder.matches("ChangedPassword", result.getPassword()));
     }
 
     private User arrangeUserToEdit() {
-        User testUser = new User();
+        User testUser = new User("TestEmail",passwordEncoder.encode("TestPassword"),"TestName",Gender.MALE);
         testUser.setId(0);
-        testUser.setName("Test");
-        testUser.setGender(Gender.MALE);
         userDataAccess.save(testUser);
         return testUser;
+    }
+
+    @Test
+    void shouldNotEditUserPasswordWhenBlankPassed(){
+        // Arrange
+        User testUser = arrangeUserToEdit();
+        UserForUpdateDTO userForUpdateDTO = new UserForUpdateDTO();
+        userForUpdateDTO.setGender(Gender.FEMALE);
+        userForUpdateDTO.setName("ChangedName");
+        userForUpdateDTO.setPassword("");
+        // Act
+        userService.editUser(userForUpdateDTO, testUser);
+        User result = userDataAccess.findUserById(0).orElseThrow(ResourceNotFoundException::new);
+        // Assert
+        assertTrue(passwordEncoder.matches("TestPassword", result.getPassword()));
     }
 }
