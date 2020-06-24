@@ -12,12 +12,12 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.Optional;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 import static org.mockito.Mockito.any;
 import static org.mockito.Mockito.when;
 
@@ -59,6 +59,17 @@ class UserServiceTest {
         Page<UserForDisplayAllDTO> actualUsers = userService.getAllUsers(pageable);
         // Assert
         assertEquals(expectedUserCount, actualUsers.getTotalElements());
+    }
+
+    @Test
+    void shouldRaiseExceptionWhenPageIsEmpty() {
+        // Arrange
+        Pageable pageable = PageRequest.of(0, 1);
+        final Optional<Role> rolePossibly = Optional.of(new Role(RoleOptions.ROLE_USER));
+        // Act
+        when(roleDataAccess.findByName(any(RoleOptions.class))).thenReturn(rolePossibly);
+        // Assert
+        assertThrows(ResourceNotFoundException.class, ()->userService.getAllUsers(pageable));
     }
 
     private void arrangeUsers() {
