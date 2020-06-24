@@ -15,6 +15,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 @ExtendWith(MockitoExtension.class)
 @SpringBootTest
@@ -50,8 +51,9 @@ class StylizationServiceTest {
         stylizationForCreationDTO.setClothes(Arrays.asList(new ClothForStylizationCreationDTO(), new ClothForStylizationCreationDTO()));
         // Act
         stylizationService.addStylization(user, stylizationForCreationDTO);
-        final List<Stylization> result = stylizationDataAccess.findAll();
+        final Stylization result = stylizationDataAccess.findAll().get(0);
         // Assert
-        assertEquals(expectedCount, result.size());
+        assertTrue(stylizationForCreationDTO.getTag().equals(result.getTag()) &&
+                stylizationForCreationDTO.getClothes().size() == result.getClothes().size());
     }
 }
