@@ -10,10 +10,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 
 @SpringBootTest
-@ExtendWith(MockitoExtension.class)
 class WardrobeServiceTest {
 
     private User user;
@@ -49,7 +49,7 @@ class WardrobeServiceTest {
     @Test
     void shouldEditBodyPartOfCloth(){
         //arrange
-        Cloth clothToBeEdited = getClothToBeEdited();
+        Cloth clothToBeEdited = getCloth();
         wardrobeDataAccess.save(clothToBeEdited);
         ClothForUpdateDTO clothForUpdateDTO = getClothForUpdateDTO();
         //act
@@ -61,7 +61,7 @@ class WardrobeServiceTest {
     @Test
     void shouldSaveImageNameWhileEditingCloth(){
         //arrange
-        Cloth clothToBeEdited = getClothToBeEdited();
+        Cloth clothToBeEdited = getCloth();
         wardrobeDataAccess.save(clothToBeEdited);
         ClothForUpdateDTO clothForUpdateDTO = getClothForUpdateDTO();
         //act
@@ -70,11 +70,23 @@ class WardrobeServiceTest {
         assertEquals(wardrobeDataAccess.findAll().get(1).getImageName(), clothToBeEdited.getImageName());
     }
 
-    private Cloth getClothToBeEdited() {
-        Cloth clothToBeEdited = modelMapper.map(getClothForCreationDTO(), Cloth.class);
-        clothToBeEdited.setId(0);
-        clothToBeEdited.setUser(user);
-        return clothToBeEdited;
+    @Test
+    void shouldDeleteCloth(){
+        //arrange
+        Cloth clothToBeDeleted = getCloth();
+        wardrobeDataAccess.save(clothToBeDeleted);
+        //act
+        wardrobeService.deleteCloth(clothToBeDeleted.getId(), user.getId());
+        //assert
+        assertTrue(wardrobeDataAccess.findAll().isEmpty());
+
+    }
+
+    private Cloth getCloth() {
+        Cloth cloth = modelMapper.map(getClothForCreationDTO(), Cloth.class);
+        cloth.setId(0);
+        cloth.setUser(user);
+        return cloth;
     }
 
     private ClothForUpdateDTO getClothForUpdateDTO() {

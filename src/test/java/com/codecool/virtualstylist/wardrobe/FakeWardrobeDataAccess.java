@@ -30,4 +30,15 @@ public interface FakeWardrobeDataAccess extends WardrobeDataAccess {
         .filter(cloth -> cloth.getId() == id && cloth.getUser().getId() == user_id)
         .findFirst();
     }
+
+    @Override
+    default boolean existsClothByIdAndUser_Id(int id, int userId){
+        if(findByIdAndUser_Id(id, userId).isPresent()) return true;
+        return false;
+    };
+
+    @Override
+    default void deleteClothByIdAndUserId(int clothId, int userId){
+        clothes.removeIf(cloth -> cloth.getId() == clothId && cloth.getUser().getId() == userId);
+    };
 }
