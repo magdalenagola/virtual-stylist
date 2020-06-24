@@ -50,8 +50,7 @@ class WardrobeServiceTest {
     @Test
     void shouldEditBodyPartOfCloth(){
         //arrange
-        Cloth clothToBeEdited = getCloth();
-        wardrobeDataAccess.save(clothToBeEdited);
+        wardrobeDataAccess.save(getCloth());
         ClothForUpdateDTO clothForUpdateDTO = getClothForUpdateDTO();
         clothForUpdateDTO.setClothType("TSHIRT");
         //act
