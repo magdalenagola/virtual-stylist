@@ -5,6 +5,8 @@ import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Repository
 public interface FakeWardrobeDataAccess extends WardrobeDataAccess {
@@ -20,5 +22,12 @@ public interface FakeWardrobeDataAccess extends WardrobeDataAccess {
     @Override
     default List<Cloth> findAll(){
         return clothes;
+    }
+
+    @Override
+    default Optional<Cloth> findByIdAndUser_Id(int id, int user_id){
+        return clothes.stream()
+        .filter(cloth -> cloth.getId() == id && cloth.getUser().getId() == user_id)
+        .findFirst();
     }
 }

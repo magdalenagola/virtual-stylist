@@ -36,7 +36,7 @@ class WardrobeServiceTest {
     }
 
     @Test
-    void shouldSaveUser() {
+    void shouldSaveCloth() {
         //arrange
         ClothForCreationDTO clothForCreationDTO = getClothForCreationDTO();
         //act
@@ -45,6 +45,48 @@ class WardrobeServiceTest {
         ClothForCreationDTO savedClothForCreation = modelMapper.map(wardrobeDataAccess.findAll().get(0), ClothForCreationDTO.class);
         assertEquals(savedClothForCreation, clothForCreationDTO);
     }
+
+    @Test
+    void shouldEditBodyPartOfCloth(){
+        //arrange
+        Cloth clothToBeEdited = getClothToBeEdited();
+        wardrobeDataAccess.save(clothToBeEdited);
+        ClothForUpdateDTO clothForUpdateDTO = getClothForUpdateDTO();
+        //act
+        wardrobeService.editCloth(clothForUpdateDTO, user);
+        //assert
+        assertEquals(wardrobeDataAccess.findAll().get(1).getBodyPart(), ClothesProperties.BodyPart.CHEST);
+    }
+
+    @Test
+    void shouldSaveImageNameWhileEditingCloth(){
+        //arrange
+        Cloth clothToBeEdited = getClothToBeEdited();
+        wardrobeDataAccess.save(clothToBeEdited);
+        ClothForUpdateDTO clothForUpdateDTO = getClothForUpdateDTO();
+        //act
+        wardrobeService.editCloth(clothForUpdateDTO, user);
+        //assert
+        assertEquals(wardrobeDataAccess.findAll().get(1).getImageName(), clothToBeEdited.getImageName());
+    }
+
+    private Cloth getClothToBeEdited() {
+        Cloth clothToBeEdited = modelMapper.map(getClothForCreationDTO(), Cloth.class);
+        clothToBeEdited.setId(0);
+        clothToBeEdited.setUser(user);
+        return clothToBeEdited;
+    }
+
+    private ClothForUpdateDTO getClothForUpdateDTO() {
+        ClothForUpdateDTO clothForUpdateDTO = new ClothForUpdateDTO();
+        clothForUpdateDTO.setId(0);
+        clothForUpdateDTO.setHasPattern(true);
+        clothForUpdateDTO.setClothType("TSHIRT");
+        clothForUpdateDTO.setColor("RED");
+        clothForUpdateDTO.setStyle("BOHO");
+        return clothForUpdateDTO;
+    }
+
 
     private ClothForCreationDTO getClothForCreationDTO() {
         ClothForCreationDTO clothForCreationDTO = new ClothForCreationDTO();
@@ -55,6 +97,4 @@ class WardrobeServiceTest {
         clothForCreationDTO.setStyle("BOHO");
         return clothForCreationDTO;
     }
-
-
 }
