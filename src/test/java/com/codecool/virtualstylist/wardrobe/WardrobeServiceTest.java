@@ -1,5 +1,6 @@
 package com.codecool.virtualstylist.wardrobe;
 
+import com.codecool.virtualstylist.exception.ResourceNotFoundException;
 import com.codecool.virtualstylist.user.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -8,12 +9,14 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 
-import static org.junit.Assert.assertEquals;
+import static com.codecool.virtualstylist.wardrobe.ClothesProperties.*;
+import static org.junit.Assert.*;
 
 
 @SpringBootTest
-@ExtendWith(MockitoExtension.class)
 class WardrobeServiceTest {
 
     private User user;
@@ -49,52 +52,101 @@ class WardrobeServiceTest {
     @Test
     void shouldEditBodyPartOfCloth(){
         //arrange
-        Cloth clothToBeEdited = getClothToBeEdited();
-        wardrobeDataAccess.save(clothToBeEdited);
+        wardrobeDataAccess.save(getCloth());
         ClothForUpdateDTO clothForUpdateDTO = getClothForUpdateDTO();
+        clothForUpdateDTO.setClothType("TSHIRT");
         //act
         wardrobeService.editCloth(clothForUpdateDTO, user);
         //assert
-        assertEquals(wardrobeDataAccess.findAll().get(1).getBodyPart(), ClothesProperties.BodyPart.CHEST);
+        assertEquals(wardrobeDataAccess.findAll().get(1).getBodyPart(), BodyPart.CHEST);
     }
 
     @Test
     void shouldSaveImageNameWhileEditingCloth(){
         //arrange
-        Cloth clothToBeEdited = getClothToBeEdited();
+        Cloth clothToBeEdited = getCloth();
         wardrobeDataAccess.save(clothToBeEdited);
-        ClothForUpdateDTO clothForUpdateDTO = getClothForUpdateDTO();
         //act
-        wardrobeService.editCloth(clothForUpdateDTO, user);
+        wardrobeService.editCloth(getClothForUpdateDTO(), user);
         //assert
         assertEquals(wardrobeDataAccess.findAll().get(1).getImageName(), clothToBeEdited.getImageName());
     }
 
-    private Cloth getClothToBeEdited() {
-        Cloth clothToBeEdited = modelMapper.map(getClothForCreationDTO(), Cloth.class);
-        clothToBeEdited.setId(0);
-        clothToBeEdited.setUser(user);
-        return clothToBeEdited;
+    @Test
+    void shouldDeleteCloth(){
+        //arrange
+        wardrobeDataAccess.save(getCloth());
+        //act
+        wardrobeService.deleteCloth(getCloth().getId(), user.getId());
+        //assert
+        assertTrue(wardrobeDataAccess.findAll().isEmpty());
+    }
+
+    @Test
+    void shouldThrowResourceNotFoundExceptionWhenTryingToDeleteNotExistingCloth(){
+        //arrange
+        int notExistingClothId = 1;
+        //act
+        //assert
+        assertThrows(ResourceNotFoundException.class, () -> {
+            wardrobeService.deleteCloth(notExistingClothId, user.getId());
+        });
+    }
+
+    @Test
+    void shouldThrowResourceNotFoundExceptionWhenTryingToDeleteClothOfAnotherUser(){
+        //arrange
+        int notMatchingUserId = 1;
+        //act
+        //assert
+        assertThrows(ResourceNotFoundException.class, () -> {
+            wardrobeService.deleteCloth(getCloth().getId(), notMatchingUserId);
+        });
+    }
+
+    @Test
+    void shouldThrowResourceNotFoundExceptionWhenThereAreNoClothesForGivenUser(){
+        //arrange
+        int notMatchingUserId = 1;
+        Pageable pageable = PageRequest.of(0, 2);
+        //act
+        //assert
+        assertThrows(ResourceNotFoundException.class, () -> {
+            wardrobeService.getAllClothesByUserId(notMatchingUserId, pageable);
+        });
+    }
+
+    @Test
+    void shouldThrowResourceNotFoundExceptionWhenTryingToGetNotExistingCloth(){
+        //arrange
+        int notExistingClothId = 1;
+        //act
+        //assert
+        assertThrows(ResourceNotFoundException.class, () -> {
+            wardrobeService.getClothById(notExistingClothId, user.getId());
+        });
+    }
+
+    private Cloth getCloth() {
+        Cloth cloth = new Cloth();
+        cloth.setId(0);
+        cloth.setUser(user);
+        cloth.setImageName("test");
+        cloth.setHasPattern(true);
+        cloth.setClothType(ClothType.JEANS);
+        cloth.setColor(Color.RED);
+        cloth.setStyle(Style.BOHO);
+        return cloth;
     }
 
     private ClothForUpdateDTO getClothForUpdateDTO() {
-        ClothForUpdateDTO clothForUpdateDTO = new ClothForUpdateDTO();
-        clothForUpdateDTO.setId(0);
-        clothForUpdateDTO.setHasPattern(true);
-        clothForUpdateDTO.setClothType("TSHIRT");
-        clothForUpdateDTO.setColor("RED");
-        clothForUpdateDTO.setStyle("BOHO");
+        ClothForUpdateDTO clothForUpdateDTO = modelMapper.map(getCloth(), ClothForUpdateDTO.class);
         return clothForUpdateDTO;
     }
 
 
     private ClothForCreationDTO getClothForCreationDTO() {
-        ClothForCreationDTO clothForCreationDTO = new ClothForCreationDTO();
-        clothForCreationDTO.setImageName("test");
-        clothForCreationDTO.setHasPattern(true);
-        clothForCreationDTO.setClothType("JEANS");
-        clothForCreationDTO.setColor("RED");
-        clothForCreationDTO.setStyle("BOHO");
+        ClothForCreationDTO clothForCreationDTO = modelMapper.map(getCloth(), ClothForCreationDTO.class);
         return clothForCreationDTO;
     }
 }
