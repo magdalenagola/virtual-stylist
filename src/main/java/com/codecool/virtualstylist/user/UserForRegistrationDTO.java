@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Set;
 
 
-class UserForRegistrationDTO {
+public class UserForRegistrationDTO {
 
     @JsonProperty("email")
     private String email;

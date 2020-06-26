@@ -50,9 +50,10 @@ class UserService {
     Page<UserForDisplayAllDTO> getAllUsers(Pageable pageable) throws ResourceNotFoundException {
         Optional<Role> rolePossibly = roleDataAccess.findByName(RoleOptions.ROLE_USER);
         Page<User> usersPagedResult =  userDataAccess.findAllByRolesIs(rolePossibly.orElseThrow(() -> new ResourceNotFoundException("Role not found!")), pageable);
-        Optional<List<User>>users = Optional.of(usersPagedResult.getContent());
+        List<User> users = usersPagedResult.getContent();
+        if(users.isEmpty())
+            throw new ResourceNotFoundException("Page not found!");
         List<UserForDisplayAllDTO> usersForDisplay = users
-                .orElseThrow(()->new ResourceNotFoundException("Page not found!"))
                 .stream()
                 .map(user -> modelMapper.map(user, UserForDisplayAllDTO.class))
                 .collect(Collectors.toList());

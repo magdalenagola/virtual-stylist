@@ -62,9 +62,11 @@ class WardrobeService {
 
     Page<ClothForDisplayWardrobeDTO> getAllClothesByUserId(int userId, Pageable pageable) throws ResourceNotFoundException {
         Page<Cloth> clothesPagedResult =  wardrobeDataAccess.findAllByUser_Id(userId, pageable);
-        Optional<List<Cloth>>clothes = Optional.of(clothesPagedResult.getContent());
+        List<Cloth> clothes = clothesPagedResult.getContent();
+        if (clothes.isEmpty()){
+            throw new ResourceNotFoundException("Page not found!");
+        }
         List<ClothForDisplayWardrobeDTO> clothesForDisplay = clothes
-                .orElseThrow(()->new ResourceNotFoundException("Page not found!"))
                 .stream()
                 .map(cloth -> modelMapper.map(cloth,ClothForDisplayWardrobeDTO.class))
                 .collect(Collectors.toList());
