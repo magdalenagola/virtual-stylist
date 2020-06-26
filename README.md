@@ -12,8 +12,8 @@
 
 ## About <a name = "about"></a>
 
-  Open source project for codecool.
-  As a students on 4th and last codecool module we are supposed to create open source web application using any resources we have learned during course. Virtual-Stylist is an application which can help you to govern your wardrobe, group and store every piece of clothes you have. Moreover we offer our stylist module which are able to compose stylization for different occasions. You can create stylizations from clothes you added on your own as well.
+  An open source project for Codecool.
+  As students on the 4th and last learning module in Codecool we are creating an open source web application using tools and knowledge we have gained during the course. Virtual-Stylist is an application which can help you manage your wardrobe, group and store every piece of clothing you have. Moreover, we offer our stylist module which is able to create stylizations for different occasions. You can also use clothes in your wardrobe to create and save your own stylization.
 
 ## Built With <a name = "built-with"></a>
 
