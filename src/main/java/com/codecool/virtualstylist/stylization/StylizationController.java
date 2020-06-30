@@ -1,6 +1,5 @@
 package com.codecool.virtualstylist.stylization;
 
-import com.codecool.virtualstylist.exception.ResourceNotFoundException;
 import com.codecool.virtualstylist.user.AuthService;
 import com.codecool.virtualstylist.user.User;
 import com.codecool.virtualstylist.wardrobe.ClothForDisplayStylizationDTO;
@@ -63,10 +62,5 @@ class StylizationController {
     ResponseEntity<List<ClothForDisplayStylizationDTO>> getAllMatchingClothes(@PathVariable("clothId") int clothId) {
         User user = authService.findUserByEmail();
         return ResponseEntity.ok(stylizationService.getMatchingClothes(clothId, user.getId()));
-    }
-
-    @ExceptionHandler(ResourceNotFoundException.class)
-    private ResponseEntity<String> handleResourceNotFound(ResourceNotFoundException e){
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
     }
 }

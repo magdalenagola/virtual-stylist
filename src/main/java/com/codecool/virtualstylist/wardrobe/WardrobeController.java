@@ -1,6 +1,5 @@
 package com.codecool.virtualstylist.wardrobe;
 
-import com.codecool.virtualstylist.exception.ResourceNotFoundException;
 import com.codecool.virtualstylist.user.AuthService;
 import com.codecool.virtualstylist.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -70,10 +69,5 @@ class WardrobeController {
         ClothesProperties.BodyPart enumBodyPart = ClothesProperties.BodyPart.valueOf(bodyPart.toUpperCase());
         User user = authService.findUserByEmail();
         return ResponseEntity.ok(wardrobeService.getAllClothesByBodyPart(enumBodyPart, user.getId()));
-    }
-
-    @ExceptionHandler(ResourceNotFoundException.class)
-    ResponseEntity<String> handleResourceNotFound(ResourceNotFoundException e){
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
     }
 }
