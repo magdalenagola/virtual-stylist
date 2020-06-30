@@ -59,7 +59,7 @@ class StylizationService {
     List<ClothForDisplayStylizationDTO> getAllStylizationsByClothId(int clothId, int userId) {
         final Cloth cloth = wardrobeDataAccess
                 .findByIdAndUser_Id(clothId, userId)
-                .orElseThrow(ResourceNotFoundException::new);
+                .orElseThrow(()-> new ResourceNotFoundException("Cloth not found!"));
         return stylizationDataAccess.findAllByClothesContains(cloth)
                 .stream()
                 .map(stylization -> {
