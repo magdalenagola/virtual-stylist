@@ -30,11 +30,20 @@ Clone our repository using :
 git clone https://github.com/magdalenagola/virtual-stylist.git
 ```
 
-Maven properties will set automatically.
+Maven properties will be set automatically.
+
+### Important!
+
+To run the application you need to set some data in the application properties file (src/main/resources/application.properties), that is:
+- postgres database credentials
+- JWT secret key
+- Amazon credentials
+
+To run tests there is a need to create application properties file in src/main/resources named "application-test.properties" with data for tests. 
 
 ## Run <a name = "run"></a>
 
-To Run our application simply type following commands in termial:
+To run our application simply type following commands in termial:
 ```
   mvn package
 ```
