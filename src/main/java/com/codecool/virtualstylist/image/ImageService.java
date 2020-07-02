@@ -66,7 +66,12 @@ public class ImageService {
 
     public void deleteFile(User user, String fileName){
         String fileKey = String.format("%d/%s", user.getId(), fileName);
-        s3.deleteObject(new DeleteObjectRequest(BUCKET_NAME, fileKey));
+        try{
+            s3.deleteObject(BUCKET_NAME, fileKey);
+        }
+        catch(AmazonS3Exception e){
+            throw new ResourceNotFoundException(fileName + " not found!");
+        }
     }
 
     private void validateFile(MultipartFile multipartFile) {
