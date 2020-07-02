@@ -135,6 +135,8 @@ class Converters {
                     return 5;
                 case JEANS:
                     return 6;
+                case SKIRT:
+                    return 7;
                 default:
                     throw new IllegalArgumentException("Unknown " + clothType);
             }
@@ -155,6 +157,8 @@ class Converters {
                     return DRESS;
                 case 6:
                     return JEANS;
+                case 7:
+                    return SKIRT;
                 default:
                     throw new IllegalArgumentException("Unknown " + dbData);
             }
