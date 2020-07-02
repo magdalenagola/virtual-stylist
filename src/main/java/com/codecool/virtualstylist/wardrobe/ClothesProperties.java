@@ -23,7 +23,7 @@ public class ClothesProperties {
     private static Map<BodyPart, ClothType[]> createBodyPartsForClothesMap() {
         Map<BodyPart, ClothType[]> bodyPartsForClothes = new HashMap<>();
         bodyPartsForClothes.put(BodyPart.CHEST, new ClothType[]{ClothType.BLOUSE, ClothType.TOP, ClothType.TSHIRT});
-        bodyPartsForClothes.put(BodyPart.LEGS, new ClothType[]{ClothType.TROUSERS, ClothType.JEANS});
+        bodyPartsForClothes.put(BodyPart.LEGS, new ClothType[]{ClothType.TROUSERS, ClothType.JEANS, ClothType.SKIRT});
         bodyPartsForClothes.put(BodyPart.BODY, new ClothType[]{ClothType.DRESS});
         return bodyPartsForClothes;
     }
@@ -112,7 +112,8 @@ public class ClothesProperties {
         TOP,
         TROUSERS,
         DRESS,
-        JEANS
+        JEANS,
+        SKIRT
     }
 
 }
