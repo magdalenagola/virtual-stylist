@@ -3,6 +3,7 @@ package com.codecool.virtualstylist.image;
 import com.amazonaws.AmazonServiceException;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.AmazonS3Exception;
+import com.amazonaws.services.s3.model.DeleteObjectRequest;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.S3Object;
 import com.codecool.virtualstylist.exception.ResourceNotFoundException;
@@ -61,6 +62,16 @@ public class ImageService {
             } catch (IOException |AmazonServiceException e) {
                 throw new IllegalArgumentException();
             }
+    }
+
+    public void deleteFile(User user, String fileName){
+        String fileKey = String.format("%d/%s", user.getId(), fileName);
+        try{
+            s3.deleteObject(BUCKET_NAME, fileKey);
+        }
+        catch(AmazonS3Exception e){
+            throw new ResourceNotFoundException(fileName + " not found!");
+        }
     }
 
     private void validateFile(MultipartFile multipartFile) {

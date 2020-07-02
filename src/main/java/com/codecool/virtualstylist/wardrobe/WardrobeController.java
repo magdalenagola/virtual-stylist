@@ -1,5 +1,6 @@
 package com.codecool.virtualstylist.wardrobe;
 
+import com.codecool.virtualstylist.image.ImageService;
 import com.codecool.virtualstylist.user.AuthService;
 import com.codecool.virtualstylist.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,11 +20,13 @@ class WardrobeController {
 
     private final WardrobeService wardrobeService;
     private final AuthService authService;
+    private final ImageService imageService;
 
     @Autowired
-    WardrobeController(WardrobeService wardrobeService, AuthService authService){
+    WardrobeController(WardrobeService wardrobeService, AuthService authService, ImageService imageService){
         this.wardrobeService = wardrobeService;
         this.authService = authService;
+        this.imageService = imageService;
     }
 
     @GetMapping
@@ -53,6 +56,7 @@ class WardrobeController {
     @DeleteMapping("/{id}")
     ResponseEntity deleteCloth(@PathVariable("id") int id){
         User user = authService.findUserByEmail();
+        imageService.deleteFile(user, wardrobeService.getClothById(id, user.getId()).getImageName());
         wardrobeService.deleteCloth(id, user.getId());
         return ResponseEntity.noContent().build();
     }
