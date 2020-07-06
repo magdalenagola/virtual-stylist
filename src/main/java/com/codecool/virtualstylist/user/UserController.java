@@ -29,7 +29,6 @@ class UserController {
     }
 
     @GetMapping
-    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     ResponseEntity<Page<UserForDisplayAllDTO>> getAllUsers(@PageableDefault(
             size = 50,
             sort = "email",
@@ -46,7 +45,6 @@ class UserController {
     }
 
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     ResponseEntity deleteUser(@PathVariable("id") int id){
         userService.deleteUser(id);
         return ResponseEntity.noContent().build();

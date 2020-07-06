@@ -46,13 +46,15 @@ public class AuthService {
     private Set<Role> getUserRoles(Set<String> stringRoles) {
         Set<Role> roles = new HashSet<>();
         if (stringRoles == null) {
-            roles.add(getRole(RoleOptions.ROLE_USER));
+            roles.add(getRole(RoleOptions.ROLE_GUEST));
         } else {
             stringRoles.forEach(role -> {
                 if (role.equals("admin")) {
                     roles.add(getRole(RoleOptions.ROLE_ADMIN));
-                } else if (role.equals("user")) {
+                }else if (role.equals("user")) {
                     roles.add(getRole(RoleOptions.ROLE_USER));
+                }else if (role.equals("guest")) {
+                    roles.add(getRole(RoleOptions.ROLE_GUEST));
                 }
             });
         }

@@ -4,6 +4,7 @@ import com.codecool.virtualstylist.user.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -63,10 +64,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                         "/v2/api-docs",
                         "/webjars/**")
                 .permitAll()
+                .antMatchers(HttpMethod.GET, "/user").hasRole("ADMIN")
+                .antMatchers(HttpMethod.DELETE, "/user/{id}").hasRole("ADMIN")
+                .antMatchers(HttpMethod.GET, "/**").hasAnyRole("USER", "GUEST", "ADMIN")
+                .antMatchers(HttpMethod.PUT, "/**").hasAnyRole("USER", "ADMIN")
+                .antMatchers(HttpMethod.POST, "/**").hasAnyRole("USER", "ADMIN")
+                .antMatchers(HttpMethod.DELETE, "/**").hasAnyRole("USER", "ADMIN")
                 .anyRequest().authenticated();
-
         http.csrf().disable();
-
         http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
     }
 }
