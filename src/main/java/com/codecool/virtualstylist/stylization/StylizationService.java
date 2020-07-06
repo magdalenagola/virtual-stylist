@@ -42,16 +42,15 @@ class StylizationService {
 
     Page<StylizationForDisplayDTO> getAllStylizations(Pageable pageable, int userId) throws ResourceNotFoundException{
         Page<Stylization> stylizationsPagedResult = stylizationDataAccess.findAllByUser_Id(pageable,userId);
-        Optional<List<Stylization>> stylizations = Optional.of(stylizationsPagedResult.getContent());
+        List<Stylization> stylizations = stylizationsPagedResult.getContent();
+        if (stylizations.isEmpty()) throw new ResourceNotFoundException("Page not found!");
         List<StylizationForDisplayDTO> stylizationsForDisplay = stylizations
-                .orElseThrow(()-> new ResourceNotFoundException("Stylizations not found!"))
                 .stream()
                 .map(stylization -> new StylizationForDisplayDTO(stylization.getId(),stylization.getClothes()
                         .stream()
                         .map(cloth->modelMapper.map(cloth, ClothForDisplayStylizationDTO.class))
                         .collect(Collectors.toList())))
                 .collect(Collectors.toList());
-
         return new PageImpl<>(stylizationsForDisplay,pageable,stylizationDataAccess.countAllByUser_Id(userId));
     }
 
