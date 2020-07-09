@@ -57,6 +57,8 @@ public class AuthService {
                     //roles.add(getRole(RoleOptions.ROLE_USER));
                 }else if (role.equals("guest")) {
                     roles.add(getRole(RoleOptions.ROLE_GUEST));
+                }else{
+                    throw new ResourceNotFoundException("Role not found");
                 }
             });
         }
