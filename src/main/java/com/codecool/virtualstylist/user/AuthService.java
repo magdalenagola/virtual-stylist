@@ -50,9 +50,11 @@ public class AuthService {
         } else {
             stringRoles.forEach(role -> {
                 if (role.equals("admin")) {
-                    roles.add(getRole(RoleOptions.ROLE_ADMIN));
+                    throw new ResourceNotFoundException("Role not found");
+                    //roles.add(getRole(RoleOptions.ROLE_ADMIN));
                 }else if (role.equals("user")) {
-                    roles.add(getRole(RoleOptions.ROLE_USER));
+                    throw new ResourceNotFoundException("Role not found");
+                    //roles.add(getRole(RoleOptions.ROLE_USER));
                 }else if (role.equals("guest")) {
                     roles.add(getRole(RoleOptions.ROLE_GUEST));
                 }
