@@ -39,6 +39,20 @@ class AuthController {
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(userForLoginDTO.getLogin(), userForLoginDTO.getPassword()));
 
+        return sendJwtResponse(authentication);
+    }
+
+    @PostMapping("/guest")
+    ResponseEntity<?> authenticateUser() {
+        final String GUEST_LOGIN = "kasia.kowalska@gmail.com";
+        final String GUEST_PASSWORD = "4u5YdYf3liH6n3V0zfIkMKwRY";
+        Authentication authentication = authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(GUEST_LOGIN, GUEST_PASSWORD));
+
+        return sendJwtResponse(authentication);
+    }
+
+    private ResponseEntity<?> sendJwtResponse(Authentication authentication) {
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String jwt = jwtUtility.generateJwtToken(authentication);
 
